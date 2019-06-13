@@ -15,7 +15,7 @@
 			<a class="nav-link pages" href="#" id="produk" role="tab" data-toggle="tab" style="font-size: 12px">SEMUA PRODUK</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link pages" href="#" id="akun" role="tab" data-toggle="tab" style="font-size: 12px">AKUN</a>
+			<a class="nav-link pages" href="<?php echo base_url('login') ?>" id="akun" style="font-size: 12px">AKUN</a>
 		</li>
 	</ul>
 </nav>

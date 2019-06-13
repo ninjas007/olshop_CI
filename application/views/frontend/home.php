@@ -199,5 +199,23 @@
     </div>
   </div>
 </section>
+<script type="text/JavaScript">
+  
+  function init() {
+    
+    $.ajax({
+      url: 'home/get',
+      type: 'GET',
+      dataType: 'json',
+      // data: {param1: 'value1'},
+      success: function (response) {
+        console.log(response)
+      }
+    })
+    
+  }
 
+  init()
+
+</script>
 
