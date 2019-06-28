@@ -12,15 +12,6 @@ class Home extends CI_Controller {
 	{
 		$this->load->view('frontend/includes/header');
 		$this->load->view('frontend/home');
-		$this->load->view('frontend/includes/footer');
-	}
-
-	public function get()
-	{
-		$this->load->model('produk_model');
-
-		$data = $this->produk_model->getProduk();
-
-		$this->output->set_content_type('application/json')->set_output(json_encode($data));
+		// $this->load->view('frontend/includes/footer');
 	}
 }

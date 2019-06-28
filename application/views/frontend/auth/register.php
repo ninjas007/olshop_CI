@@ -51,8 +51,8 @@
             <input type="password" class="form-control" id="password" name="password" placeholder="Password">
             <?php echo form_error('password','<small class="text-danger">','</small>') ?>
           </div>
-          <a href="<?php echo base_url('login') ?>" class="btn bg-danger text-white">Kembali</a>
-          <button type="submit" class="btn bg-primary text-white" name="register">Register</button>
+          <a href="<?php echo base_url('login') ?>" class="btn bg-primary text-white">Login</a>
+          <button type="submit" class="btn bg-secondary text-white" name="register">Register</button>
         </div>
       </div>
     </form>

@@ -59,3 +59,6 @@ $route['home'] = 'frontend/home/index/';
 $route['login'] = 'frontend/auth/index/';
 $route['register'] = 'frontend/auth/register/';
 $route['process'] = 'frontend/auth/process_login/';
+
+
+$route['produk'] = 'frontend/kategori_produk/index';
