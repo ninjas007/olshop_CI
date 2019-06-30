@@ -34,6 +34,7 @@
 
         #card-wrapper {
             width: 40%;
+            margin: auto;
         }
 
         @media only screen and (max-width: 600px) {
@@ -83,15 +84,15 @@
         #carouselProduct .carousel-item a img:hover {
             border: 2px solid #68c93e;
         }
+
         </style>
         
         
         <title>Home</title>
     </head>
     <body>
-        <center>
         <div class="card border-default" id="card-wrapper">
-            <h3><a href="<?php echo base_url() ?>">Bisnis Import</a></h3>
+            <h3 class="text-center"><a href="<?php echo base_url() ?>">BISNIS IMPORT</a></h3>
             <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light justify-content-between">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

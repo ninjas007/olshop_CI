@@ -1,6 +1,6 @@
 <section>
   <!-- Header -->
-  <div class="card-header" style="padding: 0;">
+  <div class="card-header text-center" style="padding: 0;">
     <p class="pt-3" id="query"><?php echo $query; ?></p>
   </div>
   <!-- Content -->
@@ -15,7 +15,7 @@
     </div>
   </div>
   <!-- Load More -->
-  <div class="card-footer" id="footerLoad">
+  <div class="card-footer" id="footerLoad" style="display: flex; justify-content: center; align-items: center;">
 
     <!-- Inject footer html -->
   </div>
@@ -129,26 +129,48 @@
   
         if (response.status == 200) {
             $('#exampleModalScrollable .modal-body').html(`
-              <div class="card mb-3" style="max-width: 540px;">
-                <div class="row no-gutters">
-                  <div class="col-md-4">
-                    <img src="${response.data.produk.gambar}" class="card-img">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title">${response.data.produk.nama}</h5>
-                      <p class="card-text">${response.data.produk.deskripsi}</p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <h6 class="border py-2 text-center"><b>${response.data.produk.produk.nama}</b></h6>
                   </div>
                 </div>
-              </div>
+                <div class="row border m-1">
+                  <div class="col-md-4" style="padding-left:0px; padding-right:0px;">
+                    <img src="${response.data.produk.produk.gambar}" class="d-block w-100">
+                    <div class="input-group pull-left my-2">
+                      <input type="button" class="btn btn-primary btn-md" value="-" onclick="minus()">
+                      <input type="text" id="qty" style="width:80px; padding:3px;" placeholder="Qty" value="1">
+                      <input type="button" class="btn btn-primary btn-md" value="+" onclick="plus()">
+                    </div>
+                  </div>
+                  <div class="col-md-8 pr-0">                   
+                    <p class="card-text" style="overflow-y:scroll; height: 200px; padding:2px">${response.data.produk.produk.deskripsi}</p>
+                  </div> 
+                </div>
             `)
         }
 
       }
     })    
 
+  }
+
+  function minus() {
+    
+    let qty = $('#qty').val()
+
+    if (qty > 1) {
+      $('#qty').val(qty - 1)
+    }
+  }
+
+  function plus() {
+    
+    let qty = $('#qty').val()
+
+    if (qty < 10) {
+      $('#qty').val(parseInt(qty) + 1)
+    }
   }
 
 </script>
