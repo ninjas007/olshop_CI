@@ -37,8 +37,7 @@
         <!-- Detail produk -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <!-- Add Button -->
       </div>
     </div>
   </div>
@@ -126,8 +125,36 @@
       dataType: 'json',
       data: {id_produk: id},
       success: function (response) {
-  
+        
+        let warna = '';
+        let ukuran = '';
+        let berat = '';
+
+        $.each(response.data.unit, function(index, el) {
+          warna += `${el.warna}, `
+          ukuran += `${el.ukuran}, `
+        });
+
         if (response.status == 200) {
+            
+            html_unit = `
+                <tr>
+                  <td class="pt-2 pr-1 pb-1">Warna</td>
+                  <td class="pt-2 pr-1 pb-1">:</td>
+                  <td class="pt-2 pr-1 pb-1">${warna}</td>
+                </tr>
+                <tr>
+                  <td class="pt-2 pr-1 pb-1">Ukuran</td>
+                  <td class="pt-2 pr-1 pb-1">:</td>
+                  <td class="pt-2 pr-1 pb-1">${ukuran}</td>
+                </tr>
+                <tr>
+                  <td class="pt-2 pr-1 pb-1">Berat</td>
+                  <td class="pt-2 pr-1 pb-1">:</td>
+                  <td class="pt-2 pr-1 pb-1">${response.data.produk.produk.berat} gram</td>
+                </tr>
+            `
+
             $('#exampleModalScrollable .modal-body').html(`
                 <div class="row">
                   <div class="col-md-12">
@@ -136,18 +163,27 @@
                 </div>
                 <div class="row border m-1">
                   <div class="col-md-4" style="padding-left:0px; padding-right:0px;">
-                    <img src="${response.data.produk.produk.gambar}" class="d-block w-100">
+                    <img src="${response.data.produk.produk.gambar}" class="d-block w-100" style="height:152px">
                     <div class="input-group pull-left my-2">
-                      <input type="button" class="btn btn-primary btn-md" value="-" onclick="minus()">
+                      <input type="button" class="btn btn-success btn-flat btn-md" value="-" onclick="minus()">
                       <input type="text" id="qty" style="width:80px; padding:3px;" placeholder="Qty" value="1">
-                      <input type="button" class="btn btn-primary btn-md" value="+" onclick="plus()">
+                      <input type="button" class="btn btn-success btn-flat btn-md" value="+" onclick="plus()">
                     </div>
                   </div>
-                  <div class="col-md-8 pr-0">                   
-                    <p class="card-text" style="overflow-y:scroll; height: 200px; padding:2px">${response.data.produk.produk.deskripsi}</p>
+                  <div class="col-md-8 pr-0" style="overflow-y:scroll;">
+                    <table>
+                      `+html_unit+`
+                    </table>
+                    <p class="card-text" style="height: 200px; padding:2px">${response.data.produk.produk.deskripsi}</p>
                   </div> 
                 </div>
             `)
+
+            $('#exampleModalScrollable .modal-footer').html(`
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <a href="#" id="addToCart" class="btn btn-success" onclick="addToCart(\`${response.data.produk.produk.id}\`,\`${response.data.produk.produk.nama}\`,\`${response.data.produk.produk.harga}\`,\`${response.data.produk.produk.gambar}\`)">Add to Cart</a>
+              `)
+            
         }
 
       }
@@ -162,6 +198,7 @@
     if (qty > 1) {
       $('#qty').val(qty - 1)
     }
+
   }
 
   function plus() {
@@ -171,6 +208,30 @@
     if (qty < 10) {
       $('#qty').val(parseInt(qty) + 1)
     }
+
+  }
+
+  function addToCart(id = null, nama_produk = '', harga_produk = null, gambar_produk = '') {
+    
+    $.ajax({
+      url: 'frontend/produk/add_to_cart',
+      type: 'POST',
+      data: {id: id, nama: nama_produk, harga: harga_produk, gambar: gambar_produk, qty: $('#qty').val()},
+      success: function (response) {
+          var pathname = window.location.pathname.split('/', 2)
+          $('#addToCart').attr('href', window.location.origin + '/' + pathname[1] + '/produk/cart');
+      }
+    })
+    
+    // let qty = $('#qty').val()
+    // localStorage.setItem("qty", qty);
+
+    // var pathname = window.location.pathname.split('/', 2)
+    // console.log(pathname[1])
+    // // $('#addToCart').attr('href', window.location.origin + '/frontend/kategori_produk/');
+    
+    // console.log(localStorage.getItem("qty"))
+  
   }
 
 </script>

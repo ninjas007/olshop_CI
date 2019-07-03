@@ -112,7 +112,7 @@
                                 <a class="dropdown-item" href="<?php echo base_url('login') ?>">Akun</a>
                             </div>
                         </li>
-                        <li class="nav-item"><a href="" class="nav-link">Cart</a></li>
+                        <li class="nav-item"><a href="<?php echo base_url('produk/cart') ?>" class="nav-link">Cart</a></li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0" action="<?php echo base_url('produk') ?>" method="post">
                         <input class="form-control mr-sm-2" type="search" id="search" name="search" placeholder="Cari produk">

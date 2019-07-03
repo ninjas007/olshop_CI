@@ -95,6 +95,7 @@ class Produk extends CI_Controller {
 							'id' => $produk['id_produk'],
 							'nama' => $produk['nama_produk'],
 							'harga' => $produk['harga_produk'],
+							'berat' => $produk['berat_produk'],
 							'gambar' => $produk['gambar_produk'],
 							'deskripsi' => $produk['deskripsi_produk']
 						],

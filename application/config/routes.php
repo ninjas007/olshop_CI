@@ -62,3 +62,4 @@ $route['process'] = 'frontend/auth/process_login/';
 
 
 $route['produk'] = 'frontend/kategori_produk/index';
+$route['produk/cart'] = 'frontend/produk/cart';
