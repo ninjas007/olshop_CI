@@ -20,7 +20,11 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('frontend/includes/header');
+		$this->load->library('cart');
+
+		$data['total_items'] = $this->cart->total();
+
+		$this->load->view('frontend/includes/header', $data);
 		$this->load->view('frontend/home');
 		$this->load->view('frontend/includes/footer');
 	}

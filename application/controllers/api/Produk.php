@@ -9,11 +9,6 @@ class Produk extends CI_Controller {
 		$this->load->model('produk_model');
 	}
 	
-	public function index()
-	{
-		$this->load->view('welcome_message');
-	}
-
 	public function get()
 	{
 

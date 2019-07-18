@@ -36,6 +36,7 @@ class Produk_model extends CI_Model {
 	public function detail_produk($idProduk = null)
 	{
 		$this->db->select('*');
+		$this->db->select('IFNULL(warna, "-" ) AS warna, IFNULL(ukuran, "-" ) AS ukuran, IFNULL(harga, "-" ) AS harga');
 		$this->db->from('tbl_produk');
 		$this->db->join('tbl_unit_produk', 'tbl_unit_produk.produk_id = tbl_produk.id_produk', 'left');
 		$this->db->join('tbl_kategori_produk', 'tbl_kategori_produk.id_kategori = tbl_produk.kategori_produk_id', 'right');

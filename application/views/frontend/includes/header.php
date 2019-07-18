@@ -8,6 +8,10 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
         <!-- Font comforta -->
         <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,500,600,700&display=swap" rel="stylesheet">
+        <!-- Sweet Alert -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
         <style>
 
@@ -46,8 +50,6 @@
         #list-navbar-bottom li.nav-item a.nav-link.active{
             border-top-left-radius: 0;
             border-top-right-radius: 0;
-            /*box-shadow: 1px 1px 1px grey;*/
-            /*border-radius: 5px;*/
             background: #68c93e;
             color: white;
         }
@@ -77,7 +79,6 @@
         
         #carouselProduct .carousel-item img {
             padding: 2px;
-            /*border: 1px solid grey;*/
             border-radius: 5px;
         }
 
@@ -112,7 +113,7 @@
                                 <a class="dropdown-item" href="<?php echo base_url('login') ?>">Akun</a>
                             </div>
                         </li>
-                        <li class="nav-item"><a href="<?php echo base_url('produk/cart') ?>" class="nav-link">Cart</a></li>
+                        <li class="nav-item"><a href="<?php echo base_url('cart/') ?>" class="nav-link">Cart <span style="background-color: red; color: white; padding: 2px 5px 2px 5px; border-radius: 20px; font-size: 10px;" id="jumlahItem"><?php echo $total_items ?></span></a></li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0" action="<?php echo base_url('produk') ?>" method="post">
                         <input class="form-control mr-sm-2" type="search" id="search" name="search" placeholder="Cari produk">

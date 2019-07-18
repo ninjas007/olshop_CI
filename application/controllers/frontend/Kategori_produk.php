@@ -1,5 +1,4 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Kategori_produk extends CI_Controller {
 
@@ -36,7 +35,11 @@ class Kategori_produk extends CI_Controller {
 			}
 		}
 
-		$this->load->view('frontend/includes/header');
+		$this->load->library('cart');
+
+		$total['total_items'] = $this->cart->total_items();
+
+		$this->load->view('frontend/includes/header', $total);
 		$this->load->view('frontend/produk', $data);
 	}
 }
