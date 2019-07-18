@@ -6,7 +6,8 @@
   <!-- Content -->
   <div class="card-body">
       <table class="table table-hover">
-        <?php echo $load; ?>
+        <!-- load cart -->
+        <?php echo $load; ?> 
       </table>
   </div>
 </div>
@@ -111,11 +112,11 @@
   $('#savePembayaran').click(function(event) {
 
     var data = {
-      nama : $('#nama').val(),
-      alamat : $('#alamat').val(),    
-      nohp : $('#nohp').val(), 
-      bank : $('#bank').val(),     
-      kurir : $('#kurir').val(),
+      nama: $('#nama').val(),
+      alamat: $('#alamat').val(),    
+      nohp: $('#nohp').val(), 
+      bank: $('#bank').val(),     
+      kurir: $('#kurir').val(),
     }
 
     $.ajax({

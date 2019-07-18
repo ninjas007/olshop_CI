@@ -25,6 +25,10 @@ class Cart extends CI_Controller {
 			'qty' => $this->input->post('qty'),
 			'price' => $this->input->post('price'), // masih dikeranjang
 			'name' => $this->input->post('name'),
+			'options' => [
+				'unit_id' => $this->input->post('id_unit'),
+				'user_id' => 1,
+			]
 		];	
 
 		$this->cart->insert($item);
@@ -54,6 +58,7 @@ class Cart extends CI_Controller {
 		// data cart
 		$no = 1;
 		foreach ($this->cart->contents() as $items) {
+
 			$output .= '
 				<tr>
 					<td>'.$no++.'</td>
@@ -77,8 +82,10 @@ class Cart extends CI_Controller {
 			</tr>
 		';
 
-		// tutup table body
-		$output .= '</tbody>';
+		// tutup table body dan row id cart
+		$output .= '</tbody>
+			<input type="hidden" id="rowId" value="'.$items['rowid'].'">
+		';
 		
 		
 

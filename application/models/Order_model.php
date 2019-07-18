@@ -3,11 +3,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Order_model extends CI_Model {
 
-	public function add($data = [])
+	public function tambahDetailOrder($data = [])
 	{
-		$this->db->insert('tbl_order', $data);
+		$this->db->insert('tbl_detail_order', $data);
 
-		return $this->db->affected_rows();;
+		return $this->db->affected_rows();
+	}
+
+	public function tambahOrder($data)
+	{
+		$this->db->insert_batch('tbl_order', $data);
+
+		return $this->db->affected_rows();
 	}
 
 }
