@@ -1,6 +1,6 @@
 <section>
   <!-- Header -->
-  <div class="card-header" style="padding: 0;">
+  <div class="card-header text-center" style="padding: 0;">
     <p class="pt-3" id="query"><?php echo $query; ?></p>
   </div>
   <!-- Content -->
@@ -15,7 +15,7 @@
     </div>
   </div>
   <!-- Load More -->
-  <div class="card-footer" id="footerLoad">
+  <div class="card-footer" id="footerLoad" style="display: flex; justify-content: center; align-items: center;">
 
     <!-- Inject footer html -->
   </div>
@@ -37,8 +37,7 @@
         <!-- Detail produk -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <!-- Add Button -->
       </div>
     </div>
   </div>
@@ -49,7 +48,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script>
-
   function init_produk(last_id = 0) {
 
     $('#footerLoad').html(`<img src="https://cdn.dribbble.com/users/172519/screenshots/3520576/dribbble-spinner-800x600.gif" width="50" height="35">`)
@@ -72,9 +70,9 @@
                 <div class="card">
                   <a href="#" data-toggle="modal" data-target="#exampleModalScrollable" onclick="detailProduk(\`${el.id_produk}\`)">
                     <img src="${el.gambar_produk}" class="card-img-top" alt="img-product" width="200" height="150">
-                    <div class="card-footer">
+                    <div class="card-footer p-1">
                       <small class="text-muted">${el.nama_produk}</small> <br>
-                      <small class="text-muted">${el.harga_produk}</small>
+                      <small class="text-muted">Rp. ${el.harga_produk}</small>
                     </div>
                   </a>
                 </div>
@@ -112,7 +110,7 @@
   function load_click() {
     
     let last_id = $('#lastId').html()
-    init_produk(parseInt(last_id) + 1)
+    init_produk(parseInt(last_id))
     
   }
 
@@ -126,28 +124,124 @@
       dataType: 'json',
       data: {id_produk: id},
       success: function (response) {
-  
+        
+        let warna_ukuran = '';
+        let berat = '';
+
+        $.each(response.data.unit, function(index, el) {
+          warna_ukuran += `<option value="${el.id}">${el.warna} - ${el.ukuran}</option>`
+        });
+
         if (response.status == 200) {
-            $('#exampleModalScrollable .modal-body').html(`
-              <div class="card mb-3" style="max-width: 540px;">
-                <div class="row no-gutters">
-                  <div class="col-md-4">
-                    <img src="${response.data.produk.gambar}" class="card-img">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title">${response.data.produk.nama}</h5>
-                      <p class="card-text">${response.data.produk.deskripsi}</p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            
+            html_unit = `
+                <tr>
+                  <td class="pt-2 pr-1 pb-1">Unit</td>
+                  <td class="pt-2 pr-1 pb-1" valign="top">:</td>
+                  <td class="pt-2 pr-1 pb-1" valign="top">
+                    <select id="unit">
+                      ${warna_ukuran}
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pt-2 pr-1 pb-1">Berat</td>
+                  <td class="pt-2 pr-1 pb-1">:</td>
+                  <td class="pt-2 pr-1 pb-1">${response.data.produk.produk.berat} gram</td>
+                </tr>
+                <tr>
+                  <td class="pt-2 pr-1 pb-1">Harga</td>
+                  <td class="pt-2 pr-1 pb-1">:</td>
+                  <td class="pt-2 pr-1 pb-1">Rp. <span id="hargaProduk">${response.data.produk.produk.harga}</span></td>
+                </tr>
+                <tr>
+                  <td class="pt-2 pr-1 pb-1">Qty</td>
+                  <td class="pt-2 pr-1 pb-1">:</td>
+                  <td class="pt-2 pr-1 pb-1">
+                    <div class="input-group pull-left">
+                      <input type="number" class="input-sm px-2" id="qty" style="width:70px;" onclick="changeTotal()" onkeyup="changeTotal()" placeholder="Qty" value="1">
                     </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pt-2 pr-1 pb-1">Total</td>
+                  <td class="pt-2 pr-1 pb-1">:</td>
+                  <td class="pt-2 pr-1 pb-1">Rp. <span id="subTotal">${response.data.produk.produk.harga}</span></td>
+                </tr>
+                
+            `
+
+            $('#exampleModalScrollable .modal-body').html(`
+                <div class="row">
+                  <div class="col-md-12">
+                    <h6 class="border py-2 text-center"><b>${response.data.produk.produk.nama}</b></h6>
                   </div>
                 </div>
-              </div>
+                <div class="row border m-1">
+                  <div class="col-md-5" style="padding-left:0px; padding-right:0px;">
+                    <img src="${response.data.produk.produk.gambar}" class="d-block w-100" style="height:190px" onmousemove="zoomIn(\'${response.data.produk.produk.gambar}\')">
+                  </div>
+                  <div class="col-md-7 pr-0">
+                    <small>
+                    <table>
+                      `+html_unit+`
+                    </table>
+                    </small>
+                  </div> 
+                </div>
+                <div class="row border mx-1 p-3 description-product" style="overflow-y:scroll;">
+                  <p class="card-text" style="height:200px;">Deskripsi Produk : <br>${response.data.produk.produk.deskripsi}</p>
+                </div>
             `)
+
+            $('#exampleModalScrollable .modal-footer').html(`
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                <a href="#" id="addToCart" class="btn btn-success btn-sm" onclick="addToCart(\`${response.data.produk.produk.id}\`,\`${response.data.produk.produk.nama}\`,\`${response.data.produk.produk.harga}\`,\`${response.data.produk.produk.gambar}\`)">Add to Cart</a>
+              `)
+            
         }
 
       }
     })    
+
+  }
+
+
+  function changeTotal() {
+
+    let qty = $('#qty').val()
+    if (qty < 0) {
+      alert('qty tidak boleh kurang dari nol')
+      $('#qty').val(1)
+    }
+
+    $('#subTotal').html($('#qty').val() * $('#hargaProduk').html())
+
+  }
+
+
+  function addToCart(id_produk = null, nama_produk = '', harga_produk = null, gambar_produk = '') {
+    
+    $.ajax({
+      url: 'frontend/cart/add_to_cart',
+      type: 'POST',
+      data: { id_produk: id_produk,
+              qty: $('#qty').val(),
+              price: harga_produk, 
+              name: nama_produk, 
+              id_unit: $('#unit').val()
+            },
+      success: function (response) {
+        alert('Product added into cart');
+        $('#jumlahItem').html(response)
+      }
+    })    
+    
+  }
+
+  function zoomIn(gambar) {
+    
+    $('.description-product').html(`<img src="${gambar}" width="200" height="200">`)
 
   }
 

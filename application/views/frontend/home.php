@@ -137,17 +137,6 @@
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<script>
-$('.pages').click(function(e) {
-  let menu = $(this).attr('id')
-  
-  if (menu == 'produk') {
-    $('.card-body').load(function() {
-      /* Act on the event */
-    });
-  }
-  });
-</script>
 </body>
 </html>
 

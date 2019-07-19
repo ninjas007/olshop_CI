@@ -9,11 +9,6 @@ class Produk extends CI_Controller {
 		$this->load->model('produk_model');
 	}
 	
-	public function index()
-	{
-		$this->load->view('welcome_message');
-	}
-
 	public function get()
 	{
 
@@ -75,16 +70,18 @@ class Produk extends CI_Controller {
 	{
 		$idProduk = $this->input->post('id_produk');
 		$data['data'] = [];
+		$data['data']['unit'] = [];
 		$data['status'] = 404;
 
 		if ($idProduk)
 		{
 			$results = $this->produk_model->detail_produk($idProduk);
+
 			if (!empty($results))
 			{
 				foreach ($results as $produk)
 				{
-					$data['data'] = [
+					$data['data']['produk'] = [
 						'kategori' => [
 							'id' => $produk['id_kategori'],
 							'nama' => $produk['nama_kategori'] 
@@ -93,17 +90,19 @@ class Produk extends CI_Controller {
 							'id' => $produk['id_produk'],
 							'nama' => $produk['nama_produk'],
 							'harga' => $produk['harga_produk'],
+							'berat' => $produk['berat_produk'],
 							'gambar' => $produk['gambar_produk'],
 							'deskripsi' => $produk['deskripsi_produk']
 						],
-						'unit' => [
-							'id' => $produk['id_unit'],
-							'kode' => $produk['kode_produk'],
-							'warna' => $produk['warna'],
-							'ukuran' => $produk['ukuran'],
-							'harga' => $produk['harga'],
-							'gambar' => $produk['gambar_unit']
-						],
+					];
+
+					$data['data']['unit'][] = [
+						'id' => $produk['id_unit'],
+						'kode' => $produk['kode_produk'],
+						'warna' => $produk['warna'],
+						'ukuran' => $produk['ukuran'],
+						'harga' => $produk['harga'],
+						'gambar' => $produk['gambar_unit']
 					];
 				}		
 			}
