@@ -4,8 +4,8 @@
   </div>
 
   <!-- Content -->
-  <div class="card-body">
-      <table class="table table-hover">
+  <div class="card-body" style="font-size: 13px;">
+      <table class="table">
         <!-- load cart -->
         <?php echo $load; ?> 
       </table>
@@ -68,7 +68,7 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Edit Cart</h4>
+        <h4 class="modal-title">Edit Item</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -79,8 +79,8 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="saveEdit">Simpan</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>
+        <button type="button" class="btn btn-primary btn-sm" id="saveEdit">Simpan</button>
+        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Keluar</button>
       </div>
 
     </div>
@@ -125,27 +125,11 @@
       dataType: 'json',
       data: data,
       success: function(response) {
-
+        alert(response.message)
       }
     })
   });
-
-  $('#saveEdit').click(function(event) {
-    $.ajax({
-      url: '../frontend/cart/edit/',
-      type: 'POST',
-      dataType: 'json',
-      data: {id_row: $(this).attr('id')},
-      success: function(response) {
-        if (response.status == 200) {
-          alert('Berhasil menghapus item')
-        } else {
-          alert('Gagal menghapus item')
-        }
-      }
-    })    
-  });
-
+  
 </script>
 </body>
 </html>

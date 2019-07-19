@@ -44,12 +44,12 @@ class Cart extends CI_Controller {
 		$output .= '
 			<thead>
 			  <tr>
-			    <th>No</th>
+			    <th width="10">No</th>
 			    <th>Nama Produk</th>
 			    <th>Satuan</th>
-			    <th>Qty</th>
+			    <th width="70">Qty</th>
 			    <th>Total</th>
-			    <th>Action</th>
+			    <th align="right">Batal</th>
 			  </tr>
 			</thead>
 			<tbody>
@@ -66,9 +66,8 @@ class Cart extends CI_Controller {
 					<td>'.number_format($items['price']).'</td>
 					<td>'.$items['qty'].'</td>
 					<td>'.number_format($items['subtotal']).'</td>
-					<td width="100">
-						<button type="button" id="'.$items['rowid'].'" class="edit-cart btn btn-primary btn-sm"><i class="fas fa-edit" data-toggle="modal" data-target="#editModal"></i></button>
-						<button type="button" id="'.$items['rowid'].'" class="remove-cart btn btn-danger btn-sm float-right"><i class="fas fa-trash"></i></button>
+					<td>
+						<button type="button" id="'.$items['rowid'].'" class="remove-cart btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
 					</td>
 				</tr>
 			';
@@ -82,10 +81,8 @@ class Cart extends CI_Controller {
 			</tr>
 		';
 
-		// tutup table body dan row id cart
-		$output .= '</tbody>
-			<input type="hidden" id="rowId" value="'.$items['rowid'].'">
-		';
+		// tutup table body
+		$output .= '</tbody>';
 		
 		
 
@@ -124,11 +121,12 @@ class Cart extends CI_Controller {
 		}
 		else
 		{
-			$data['status'] = 304;
+			$data['status'] = 404;
 		}
 
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($data));
 	}
+
 }
