@@ -13,8 +13,10 @@ class Home extends CI_Controller {
 		$this->load->library('cart');
 
 		$data['total_items'] = $this->cart->total_items();
+		$page['title'] = 'Home';
 
-		$this->load->view('frontend/includes/header', $data);
+		$this->load->view('frontend/includes/header', $page);
+		$this->load->view('frontend/includes/navbar', $data);
 		$this->load->view('frontend/home');
 		// $this->load->view('frontend/includes/footer');
 	}

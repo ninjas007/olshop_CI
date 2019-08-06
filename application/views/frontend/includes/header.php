@@ -11,7 +11,9 @@
         <!-- Sweet Alert -->
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css?family=Exo&display=swap" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
         <style>
 
@@ -22,7 +24,7 @@
 
         body {
             background: url('https://image.freepik.com/darmowe-wektory/wzor-o-zakupach_1061-495.jpg') fixed;
-        /*font-family: 'Comfortaa', cursive;*/
+            font-family: 'Exo', sans-serif;
         }
 
         #ThumbnailCarousel img {
@@ -89,35 +91,8 @@
         </style>
         
         
-        <title>Home</title>
+        <title><?php echo $title; ?></title>
     </head>
     <body>
         <div class="card border-default" id="card-wrapper">
-            <h3 class="text-center"><a href="<?php echo base_url() ?>">BISNIS IMPORT</a></h3>
-            <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light justify-content-between">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Menu
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Home</a>
-                                <a class="dropdown-item" href="#">Pesanan</a>
-                                <a class="dropdown-item" href="#">Help</a>
-                                <a class="dropdown-item" href="#">Semua Produk</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?php echo base_url('login') ?>">Akun</a>
-                            </div>
-                        </li>
-                        <li class="nav-item"><a href="<?php echo base_url('cart/') ?>" class="nav-link">Cart <span style="background-color: red; color: white; padding: 2px 5px 2px 5px; border-radius: 20px; font-size: 10px;" id="jumlahItem"><?php echo $total_items ?></span></a></li>
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0" action="<?php echo base_url('produk') ?>" method="post">
-                        <input class="form-control mr-sm-2" type="search" id="search" name="search" placeholder="Cari produk">
-                        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Cari</button>
-                    </form>
-                </div>
-            </nav>
+            

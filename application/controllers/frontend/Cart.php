@@ -13,8 +13,10 @@ class Cart extends CI_Controller {
 	{
 		$data['load'] = $this->view();
 		$data['total_items'] = $this->cart->total_items();
+		$page['title'] = 'Belanja';
 
-		$this->load->view('frontend/includes/header', $data);
+		$this->load->view('frontend/includes/header', $page);
+		$this->load->view('frontend/includes/navbar', $data);
 		$this->load->view('frontend/cart', $data);
 	}
 
@@ -27,9 +29,8 @@ class Cart extends CI_Controller {
 			'name' => $this->input->post('name'),
 			'options' => [
 				'unit_id' => $this->input->post('id_unit'),
-				'user_id' => 1,
 			]
-		];	
+		];
 
 		$this->cart->insert($item);
 
@@ -58,7 +59,6 @@ class Cart extends CI_Controller {
 		// data cart
 		$no = 1;
 		foreach ($this->cart->contents() as $items) {
-
 			$output .= '
 				<tr>
 					<td>'.$no++.'</td>
@@ -89,7 +89,7 @@ class Cart extends CI_Controller {
 		$output .= '
 			<tfoot>
 				<tr>
-					<td colspan="6"><a href="#" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#prosesPembayaran">Proses Pembayaran</a></td>
+					<td colspan="6"><button type="submit" class="btn btn-primary btn-sm float-right" >Proses Pembayaran</button></td>
 				</tr>
 			</tfoot>
 		';

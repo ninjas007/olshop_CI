@@ -22,7 +22,6 @@ class Auth extends CI_Controller {
 		} 
 		else
 		{
-
 			// rules
 			$this->form_validation->set_rules('username', 'Username', 'required|trim');
 			$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tbl_user.email]', ['is_unique' => 'Email sudah terdaftar']);
@@ -69,6 +68,8 @@ class Auth extends CI_Controller {
 				{
 					// simpan data sessionnya
 					$data = [
+						'status' => 'login',
+						'id_user_login' => $user['id_user'],
 						'email' => $user['email'],
 						'role_id' => $user['role_id']
 					];

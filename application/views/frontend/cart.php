@@ -1,90 +1,14 @@
-  <!-- Header -->
-  <div class="card-header" style="padding: 0;">
-
-  </div>
-
-  <!-- Content -->
-  <div class="card-body" style="font-size: 13px;">
+<div class="card-header text-center">
+  <h5>Keranjang</h5>
+</div>
+<!-- Content -->
+<div class="card-body" style="font-size: 13px;">
+    <form action="<?php echo base_url('order/add') ?>" method="post">
       <table class="table">
         <!-- load cart -->
         <?php echo $load; ?> 
       </table>
-  </div>
-</div>
-
-<!-- Pembayaran Modal -->
-<div class="modal fade" id="prosesPembayaran">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Proses Pembayaran</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        <table class="table" width="100%">
-          <tbody style="width: 100%">
-            <tr>
-              <td>Nama</td>
-              <td><input type="text" class="form-control input-sm" id="nama"></td>
-            </tr>
-            <tr>
-              <td>Alamat</td>
-              <td><textarea class="form-control input-sm" id="alamat" rows="3" style="resize: none;"></textarea></td>
-            </tr>
-            <tr>
-              <td>No Hp</td>
-              <td><input type="text" class="form-control input-sm" id="nohp"></td>
-            </tr>
-            <tr>
-              <td>Bank</td>
-              <td><input type="text" class="form-control input-sm" id="bank"></td>
-            </tr>
-            <tr>
-              <td>Kurir</td>
-              <td><input type="text" class="form-control input-sm" id="kurir"></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary btn-sm" id="savePembayaran">Proses</button>
-        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Keluar</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- Edit Modal -->
-<div class="modal fade" id="editModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Edit Item</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary btn-sm" id="saveEdit">Simpan</button>
-        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Keluar</button>
-      </div>
-
-    </div>
-  </div>
+    </form>
 </div>
 
 <!-- Optional JavaScript -->
@@ -101,34 +25,14 @@
       data: {id_row: $(this).attr('id')},
       success: function(response) {
         if (response.status == 200) {
-          alert('Berhasil menghapus item')
+          swal('Berhasil menghapus item')
         } else {
-          alert('Gagal menghapus item')
+          swal('Gagal menghapus item')
         }
       }
     })    
   });
 
-  $('#savePembayaran').click(function(event) {
-
-    var data = {
-      nama: $('#nama').val(),
-      alamat: $('#alamat').val(),    
-      nohp: $('#nohp').val(), 
-      bank: $('#bank').val(),     
-      kurir: $('#kurir').val(),
-    }
-
-    $.ajax({
-      url: '../frontend/order/pembayaran',
-      type: 'POST',
-      dataType: 'json',
-      data: data,
-      success: function(response) {
-        alert(response.message)
-      }
-    })
-  });
   
 </script>
 </body>

@@ -61,3 +61,12 @@ $route['process'] = 'frontend/auth/process_login/';
 
 $route['produk'] = 'frontend/kategori_produk/index';
 $route['cart'] = 'frontend/cart/index';
+$route['pembayaran'] = 'frontend/order/pembayaran';
+
+$route['order'] = 'frontend/order/index';
+$route['order/add'] = 'frontend/order/add';
+
+$route['ongkir/get_kota'] = 'ongkir/get_kota';
+$route['order/ongkir/get_kota'] = 'ongkir/get_kota';
+$route['ongkir/get_ongkir'] = 'ongkir/get_ongkir';
+$route['order/ongkir/get_ongkir'] = 'ongkir/get_ongkir';
