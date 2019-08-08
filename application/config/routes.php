@@ -59,7 +59,7 @@ $route['register'] = 'frontend/auth/register/';
 $route['process'] = 'frontend/auth/process_login/';
 
 
-$route['produk'] = 'frontend/kategori_produk/index';
+$route['produk'] = 'frontend/produk/index';
 $route['cart'] = 'frontend/cart/index';
 
 $route['order'] = 'frontend/order/index';

@@ -1,6 +1,5 @@
 <!-- Header -->
 <div class="card-header" style="padding: 0;">
-  
   <!-- Carousel -->
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -27,9 +26,7 @@
 </div>
 <!-- Content -->
 <div class="card-body">
-  
   <!-- Header body -->
-  
   <div class="row">
     <div class="col-8">
       <div class="text-left">
@@ -37,11 +34,10 @@
       </div>
     </div>
     <div class="col-4">
-      <a href="" style="font-size: 14px; text-align: right; color: #68c93e; font-weight: bold">Lihat Produk</a>
+      <a href="<?php echo base_url('produk') ?>" class="see-product">Lihat Produk</a>
     </div>
   </div>
   <br>
-  
   <!-- List prduct carousel -->
   <div class="row">
     <div class="col-4">
@@ -69,7 +65,7 @@
         </div>
         <div class="col-md-9">
           <div class="card-body text-left">
-            <p style="margin-bottom: 0"><strong>Jadi Agen di BisnisImport</strong></p>
+            <p class="mb-0"><strong>Jadi Agen di BisnisImport</strong></p>
             <small class="card-text" style="font-size: 10px">Buruan daftar sekarang</small>
           </div>
         </div>
@@ -84,7 +80,7 @@
         </div>
         <div class="col-md-9">
           <div class="card-body text-left">
-            <p style="margin-bottom: 0"><strong>Jualan di BisnisImport</strong></p>
+            <p class="mb-0"><strong>Jualan di BisnisImport</strong></p>
             <small class="card-text" style="font-size: 10px">Buka kios di BisnisImport dan jual produk pangan atau produk Anda</small>
           </div>
         </div>
@@ -130,70 +126,3 @@
     </div>
   </div>
 </div>
-<!-- Footer -->
-</div>
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-</body>
-</html>
-
-<script type="text/JavaScript">
-
-function init() {
-  
-  $('#carouselProduct .carousel-inner').html('load data..')
-
-  var length = $('#totalData').val()
-
-  $.ajax({
-    url: 'api/produk/get',
-    type: 'GET',
-    dataType: 'json',
-    success: function (response) {
-    }
-  })
-
-  $.ajax({
-    url: 'api/kategori_produk/get',
-    type: 'GET',
-    dataType: 'json',
-    data: {length: length},
-    success: function (response) {
-      
-      let output = '';
-
-      $.each(response.category, function(index, el) {
-        
-        var active = "active";
-        if (index != 0) {
-          active = "";
-        }
-        
-        output += '<div class="carousel-item '+active+'"><div class="row">';
-        
-        $.each(el, function(i, data) {
-          output += `
-              <div class="col-md-3">
-                <a href="">
-                <img src="${data.img_category}" class="d-block w-100" alt="IMG-CATEGORY" style="height:100px; border-radius: 5px;">
-                <p>${data.name_category}</p>
-                </a>
-              </div>
-          `
-        });
-
-        output += '</div></div>';
-        
-      });
-
-      $('#carouselProduct .carousel-inner').html(output)
-      
-    }
-  })
-}
-
-init()
-</script>

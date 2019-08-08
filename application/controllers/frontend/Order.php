@@ -52,8 +52,14 @@ class Order extends CI_Controller {
 
 		$data['total_items'] = $this->cart->total_items();
 		$page['title'] = 'Checkout';
+		
+		$this->load->view('frontend/__main/header', $page);
+		$this->load->view('frontend/__header/order');
+		$this->load->view('frontend/order', $data);
+		$this->load->view('frontend/__footer/order');
+		$this->load->view('frontend/__main/footer');
 
-		$this->load->view('frontend/log_order', $data);
+		// $this->load->view('frontend/log_order', $data);
 	}
 
 	public function add()

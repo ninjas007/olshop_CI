@@ -12,12 +12,15 @@ class Cart extends CI_Controller {
 	public function index()
 	{
 		$data['load'] = $this->view();
-		$data['total_items'] = $this->cart->total_items();
-		$page['title'] = 'Belanja';
+		$total['total_items'] = $this->cart->total_items();
+		$page['title'] = 'Cart';
 
-		$this->load->view('frontend/includes/header', $page);
-		$this->load->view('frontend/includes/navbar', $data);
+		$this->load->view('frontend/__main/header', $page);
+		$this->load->view('frontend/__header/cart', $page);
+		$this->load->view('frontend/__main/navbar', $total);
 		$this->load->view('frontend/cart', $data);
+		$this->load->view('frontend/__footer/cart');
+		$this->load->view('frontend/__main/footer');
 	}
 
 	public function add_to_cart()
