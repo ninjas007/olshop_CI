@@ -232,7 +232,7 @@
               id_unit: $('#unit').val()
             },
       success: function (response) {
-        alert('Product added into cart');
+        swal('Berhasil menambah produk ke keranjang');
         $('#jumlahItem').html(response)
       }
     })    
