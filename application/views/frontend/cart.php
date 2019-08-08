@@ -1,5 +1,5 @@
 <div class="card-header text-center">
-  <h5>Keranjang</h5>
+  <h5>Cart</h5>
 </div>
 <!-- Content -->
 <div class="card-body" style="font-size: 13px;">

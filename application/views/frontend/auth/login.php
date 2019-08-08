@@ -41,7 +41,7 @@
         
 
         <div class="card-body" style="padding: 20%;">
-          <?php echo $this->session->flashdata('success') ?>
+          <?php echo $this->session->flashdata('alert') ?>
           <div class="form-group">
             <input type="text" class="form-control" id="email" name="email" placeholder="Email">
           </div>

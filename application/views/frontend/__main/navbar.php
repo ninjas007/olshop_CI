@@ -11,14 +11,14 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="<?php echo base_url() ?>">Home</a>
-                                <a class="dropdown-item" href="#">Help</a>
                                 <a class="dropdown-item" href="<?php echo base_url('produk') ?>">Semua Produk</a>
+                                <a class="dropdown-item" href="<?php echo base_url('order') ?>">My Order</a>
+                                <a class="dropdown-item" href="#">Help</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="<?php echo base_url('login') ?>">Akun</a>
 
                                 <?php if ($this->session->userdata('status') == 'login'): ?>
-                                    <a class="dropdown-item" href="<?php echo base_url('order') ?>">My Order</a>
-                                    <a class="dropdown-item" href="<?php echo base_url('pembayaran') ?>">Pembayaran</a>    
+                                    <a class="dropdown-item" href="<?php echo base_url('konfirmasi') ?>">Konfirmasi</a>    
                                 <?php endif ?>
                             
                             </div>

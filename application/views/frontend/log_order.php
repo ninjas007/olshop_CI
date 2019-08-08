@@ -11,6 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     <!-- Sweet Alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Jquery -->
@@ -27,9 +29,9 @@
         table td {
             border-top: 0px !important;
         }
-        label {
+        /*label {
             color: grey;
-        }
+        }*/
     </style>
 </head>
 <body>
@@ -40,57 +42,81 @@
                 <div class="card">
                     <div class="card-header">Checkout</div>
                     <div class="card-body">
+                        <?php echo $this->session->flashdata('alert') ?>
                         <div class="row">
+                            
+                            <?php if ($orders == NULL): ?>
+                                <div class="col-md-12 mb-3">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <p class="card-text">Order anda kosong.</p>
+                                            <p class="card-text"> Silahkan belanja terlebih dahulu.</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <a href="<?php echo base_url('produk') ?>" class="btn btn-success btn-md btn-block" >Belanja sekarang</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php else : ?>
+
                             <div class="col-md-5 mb-3">
                               <div class="card">
                                   <div class="card-body">
                                         <p class="card-title" style="font-weight: bold">Data Penerima</p>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                <label for="nama">Nama Penerima</label>
-                                                <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama penerima">
+                                                <label for="nama">Nama Penerima*</label>
+                                                <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama penerima" value="<?php echo set_value('nama') ?>">
+                                                <?php echo form_error('nama','<small class="text-danger">','</small>') ?>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label for="nohp">No Hp Penerima</label>
-                                                <input type="text" class="form-control" name="nohp" id="nohp" placeholder="08123456xxx">
+                                                <label for="nohp">No Hp Penerima*</label>
+                                                <input type="text" class="form-control" name="nohp" id="nohp" placeholder="08123456xxx" value="<?php echo set_value('nohp') ?>">
+                                                <?php echo form_error('nohp','<small class="text-danger">','</small>') ?>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="alamat">Alamat Tujuan Penerima</label>
-                                            <textarea name="alamat" class="form-control" id="alamat" rows="5" placeholder="Jln. MT. Haryono. Lr. Nipa Raya 2 Kel. Lalolara Kec. Kambu" style="resize: none;"></textarea>
+                                            <label for="alamat">Alamat Tujuan Penerima*</label>
+                                            <textarea name="alamat" class="form-control" id="alamat" rows="5" placeholder="Jln. MT. Haryono. Lr. Nipa Raya 2 Kel. Lalolara Kec. Kambu" style="resize: none;"><?php echo set_value('alamat') ?></textarea>
+                                            <?php echo form_error('alamat','<small class="text-danger">','</small>') ?>
                                         </div>
                                         <div class="form-group">
-                                            <label for="kota">Kota Penerima</label>
+                                            <label for="kota">Kota Penerima*</label>
                                             <select name="kota" id="kota" class="form-control input-sm">
                                                 <!-- Injet kota -->
                                             </select>
+                                            <?php echo form_error('kota','<small class="text-danger">','</small>') ?>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                <label for="kurir">Kurir</label>
+                                                <label for="kurir">Kurir*</label>
                                                 <select name="kurir" id="kurir" class="form-control">
-
+                                                    <!-- Inject courier -->
                                                 </select>
+                                                <?php echo form_error('kurir','<small class="text-danger">','</small>') ?>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="kodepos">Kode Pos</label>
                                                 <input type="text" class="form-control" name="kodepos" id="kodepos" readonly placeholder="kode pos">
+                                                <?php echo form_error('kodepos','<small class="text-danger">','</small>') ?>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="layanan">Jenis Layanan</label>
+                                            <label for="layanan">Jenis Layanan*</label>
                                             <select name="layanan" id="layanan" class="form-control">
-                                                
+                                                <!-- Inject layanan -->
                                             </select>
+                                            <?php echo form_error('layanan','<small class="text-danger">','</small>') ?>
                                         </div>
                                         <div class="form-group">
-                                            <label for="bank">Bank Transfer</label>
+                                            <label for="bank">Bank Transfer*</label>
                                             <select name="bank" id="bank" class="form-control">
                                                 <option selected disabled>Pilih...</option>
                                                 <option value="Bri">BRI - 7471100445168424</option>
                                                 <option value="Bni">BNI - 0457100445168424</option>
                                                 <option value="Mandiri">Mandiri - 66584445160014</option>
                                             </select>
+                                            <?php echo form_error('bank','<small class="text-danger">','</small>') ?>
                                         </div>
                                   </div>
                               </div>  
@@ -101,7 +127,7 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th><input type="checkbox" class="form-check" id="checkAll"></th>
+                                                    <th>Batal</th>
                                                     <th>Item</th>
                                                     <th>Satuan</th>
                                                     <th>Total</th>
@@ -112,6 +138,7 @@
                                                     $output = '';
                                                     $totalBerat = 0;
                                                     $subTotal = 0;
+
                                                     foreach ($orders as $key => $order)
                                                     {
                                                         foreach ($order as $item)
@@ -120,7 +147,10 @@
                                                             $subTotal += $item['harga_produk'] * $item['qty'];
                                                             $output .= '
                                                                <tr>
-                                                                    <td><input type="checkbox" class="checkSingle"></td>
+                                                                    <td>
+                                                                        <button type="button" class="btn btn-sm btn-danger" onclick="batalOrder(\'' .$item['id_order']. '\',\'' .$item['nama_produk']. '\')"><i class="fas fa-trash"></i></button>
+                                                                        <input type="hidden" value="' .$item['id_order']. '" name="id_order[]">
+                                                                    </td>
                                                                     <td><b>' .$item['nama_produk']. '</b> <br>' 
                                                                              .$item['warna']. ' (' 
                                                                              .$item['ukuran']. ') '
@@ -152,7 +182,7 @@
                                                         </tr>
                                                         <tr class="bg-light">
                                                             <td colspan="3">Total Bayar</td>
-                                                            <td>Rp. <span id="total">' . $subTotal . '</span></td>
+                                                            <td>Rp. <span id="total">' . formatAngka($subTotal) . '</span></td>
                                                         </tr>
                                                     ';
 
@@ -163,10 +193,13 @@
                                         </table>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-success btn-xs float-right" id="prosesPembayaran">Proses Pemesanan</button>
+                                        <button type="submit" class="btn btn-success btn-sm float-right" id="prosesPembayaran">Proses Pemesanan</button>
+                                        <a href="<?php echo base_url('produk') ?>" class="btn btn-primary btn-sm float-right mr-2">Belanja Lagi</a>
                                     </div>
                                 </div>
                             </div>
+
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>
@@ -230,7 +263,7 @@
         let data = {
             kota_id_tujuan: $('#kota').val(),
             kurir: $('#kurir').val(),
-            berat: parseInt($('#berat').html()),
+            berat: $('#berat').html(),
             subtotal: $('#subtotal').html()
         }
 
@@ -240,10 +273,34 @@
             dataType: 'html',
             data: data,
             success: function(response) {
-                $('#layanan').html(response)
-                ambil_total()
+                $('#layanan').html(response);
+                ambil_total();
             }
         })
+    }
+
+    function batalOrder(id_order, nama_produk) {
+        swal({
+            title: "Batal order "+nama_produk+" ?",
+            text: "Item yang dibatalkan tidak dapat dikembalikan",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    url: 'frontend/order/batal',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {id_order: id_order},
+                    success: function(response) {
+                        swal(response.message);
+                        setTimeout(function(){ location.reload() }, 1000);
+                    }
+                })
+            }
+        });
     }
 
     /**
@@ -262,34 +319,7 @@
     */
     $('#layanan').change(function(event) {
         ambil_total()
-    });
-
-    // checkbox all
-    $("#checkAll").change(function(){
-        if(this.checked){
-            $(".checkSingle").each(function(){
-                this.checked = true;
-            })              
-        }else{
-            $(".checkSingle").each(function(){
-                this.checked = false;
-            })              
-        }
-    });
-    
-    // checkbox single
-    $(".checkSingle").click(function () {
-        if ($(this).is(":checked")){
-            var isAllChecked = 0;
-            $(".checkSingle").each(function(){
-                if(!this.checked)
-                isAllChecked = 1;
-            })              
-                if(isAllChecked == 0){ $("#checkAll").prop("checked", true); }     
-        }else{
-            $("#checkAll").prop("checked", false);
-        }
-    });
+    });  
     
     // call function
     ambil_kota()

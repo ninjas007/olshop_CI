@@ -11,7 +11,7 @@ class Order extends CI_Controller {
 			redirect('login');	
 		}
 		$this->load->model('order_model');
-		$this->load->library('cart');
+		$this->load->library(['cart','form_validation']);
 
 	}
 
@@ -21,26 +21,35 @@ class Order extends CI_Controller {
 		$codeOrder = $this->order_model->ambil_code_order_user_login($this->session->userdata('id_user_login'));
 
 		$data = [];
-		// $data['code'];
-		foreach ($codeOrder as $key => $code)
+		$data['orders'] =  [];
+
+		if (count($codeOrder) > 0 )
 		{
-			foreach ($orders as $order)
+			foreach ($codeOrder as $key => $code)
 			{
-				if ($code['code_order_id'] == $order['code_order_id'])
+				if (count($orders) > 0)
 				{
-					$data['orders'][$order['code_order_id']][] = [
-						'nama_produk' => $order['nama_produk'],
-						'warna' => $order['warna'],
-						'ukuran' => $order['ukuran'],
-						'berat_produk' => $order['berat_produk'],
-						'qty' => $order['qty'],
-						'harga_produk' => $order['harga_produk'],
-						'total' => $order['harga_produk'] * $order['qty']
-					];
-					
-				}	
-			}
+					foreach ($orders as $order)
+					{
+						if ($code['code_order_id'] == $order['code_order_id'])
+						{
+							$data['orders'][$order['code_order_id']][] = [
+								'id_order' => $order['id_order'],
+								'nama_produk' => $order['nama_produk'],
+								'warna' => $order['warna'],
+								'ukuran' => $order['ukuran'],
+								'berat_produk' => $order['berat_produk'],
+								'qty' => $order['qty'],
+								'harga_produk' => $order['harga_produk'],
+								'total' => $order['harga_produk'] * $order['qty']
+							];
+							
+						}	
+					}
+				}
+			}	
 		}
+
 		$data['total_items'] = $this->cart->total_items();
 		$page['title'] = 'Checkout';
 
@@ -50,7 +59,6 @@ class Order extends CI_Controller {
 	public function add()
 	{
 		$dataOrder = [];
-		$codeOrder = date('YmdHis') . $this->session->userdata('id_user_login');
 		$items = $this->cart->contents();
 
 		foreach ($items as $item)
@@ -61,7 +69,7 @@ class Order extends CI_Controller {
 				'qty' => $item['qty'],
 				'status' => 1,
 				'user_id' => $this->session->userdata('id_user_login'),
-				'code_order_id' => $codeOrder
+				'code_order_id' => NULL
 			]);
 		}
 
@@ -75,7 +83,7 @@ class Order extends CI_Controller {
 			if ($resultHapusCart == true)
 			{
 				$this->session
-				->set_flashdata('alert', '<div class="alert alert-success" role="alert">Berhasil, silahkan konfirmasi pembayaran di <a href="#">menu pembayaran.</a></div>');
+				->set_flashdata('alert', '<div class="alert alert-success" role="alert">Silahkan proses pemesanan dengan mengisi data berikut</div>');
 			}
 			else
 			{
@@ -94,25 +102,72 @@ class Order extends CI_Controller {
 
 	public function pembayaran()
 	{
-		$this->load->library('form_validation');
-
-		$this->form_validation->set_rules('username', 'Username', 'required');
-	    $this->form_validation->set_rules('password', 'Password', 'required',
-	        array('required' => 'You must provide a %s.')
-	    );
-	    $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required');
-	    $this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+	    $this->form_validation->set_rules('nohp', 'No Hp', 'required|trim|numeric|max_length[15]|min_length[9]');
+	    $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+	    $this->form_validation->set_rules('kota', 'Kota', 'required');
+	    $this->form_validation->set_rules('kurir', 'Kurir', 'required');
+	    $this->form_validation->set_rules('layanan', 'Layanan', 'required');
+	    $this->form_validation->set_rules('bank', 'Bank', 'required');
 
 	    if ($this->form_validation->run() == FALSE)
 	    {
-	       $this->load->view('myform');
+	    	$this->index();
 	    }
 	    else
 	    {
+	    	$this->load->library('session');
+	    	$codeOrder = substr($this->input->post('nohp'), 6, 8) . $this->session->userdata('id_user_login') . date('mHdis');
+	    	$data = [
+	    		'nama_penerima' => $this->input->post('nama'),
+	    		'nohp_penerima' => $this->input->post('nohp'),
+	    		'alamat_penerima' => $this->input->post('alamat'),
+	    		'code_order' => $codeOrder,
+	    		'tgl_order' => date('Y-m-d H:i:s'),
+	    		'subtotal' => $this->session->userdata('subtotal'),
+	    		'kurir' => $this->input->post('kurir') . ' ' . $this->input->post('layanan'),
+	    		'ongkir' => str_replace(',', '', $this->session->userdata('ongkir')),
+	    		'kodepos' => $this->input->post('kodepos'),
+	    		'total' => str_replace(',', '', $this->session->userdata('total')),
+	    		'bank' => $this->input->post('bank'),
+	    	];
+
+	    	if ($this->order_model->tambah_detail_order($data) > 0)
+	    	{
+	    		if ($this->order_model->update_data_order($codeOrder, $this->input->post('id_order')) > 0)
+	    		{
+	    			$this->index();
+	    		}
+	    		else
+	    		{
+
+	    		}
+	    	}
+	    	else
+	    	{
+
+	    	}
 	        // $this->load->view('formsuccess');
-			$this->load->view('frontend/pembayaran');
+			// $this->load->view('frontend/pembayaran');
 	    }
 
+	}
+
+	public function batal()
+	{
+		$idOrder = $this->input->post('id_order');
+		$data['message'] = '';
+
+		if ($this->order_model->delete($idOrder) > 0)
+		{
+			$data['message'] = 'Berhasil membatalkan order';	
+		}
+		else
+		{
+			$data['message'] = 'Gagal membatalkan order';	
+		}
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}
 
 }

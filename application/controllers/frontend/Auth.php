@@ -46,7 +46,7 @@ class Auth extends CI_Controller {
 
 				$this->db->insert('tbl_user', $data);
 				$this->session
-				->set_flashdata('success', '<div class="alert alert-success" role="alert">Akun berhasil dibuat! Silahkan login</div>');
+				->set_flashdata('alert', '<div class="alert alert-success" role="alert">Akun berhasil dibuat! Silahkan login</div>');
 				redirect('login');
 			}
 		}
@@ -82,21 +82,21 @@ class Auth extends CI_Controller {
 				else
 				{	
 					$this->session
-					->set_flashdata('success', '<div class="alert alert-danger" role="alert">Password salah</div>');
+					->set_flashdata('alert', '<div class="alert alert-danger" role="alert">Password salah</div>');
 					redirect('login');
 				}
 			}
 			else
 			{	
 				$this->session
-				->set_flashdata('success', '<div class="alert alert-danger" role="alert">Email belum teraktivasi</div>');
+				->set_flashdata('alert', '<div class="alert alert-danger" role="alert">Email belum teraktivasi</div>');
 				redirect('login');
 			}
 		}
 		else
 		{
 			$this->session
-			->set_flashdata('success', '<div class="alert alert-danger" role="alert">Akun belum terdaftar</div>');
+			->set_flashdata('alert', '<div class="alert alert-danger" role="alert">Akun belum terdaftar</div>');
 			redirect('login');
 		}
 	}
