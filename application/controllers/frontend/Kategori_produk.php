@@ -38,8 +38,10 @@ class Kategori_produk extends CI_Controller {
 		$this->load->library('cart');
 
 		$total['total_items'] = $this->cart->total_items();
+		$page['title'] = 'Produk';
 
-		$this->load->view('frontend/includes/header', $total);
+		$this->load->view('frontend/includes/header', $page);
+		$this->load->view('frontend/includes/navbar', $total);
 		$this->load->view('frontend/produk', $data);
 	}
 }
