@@ -17,42 +17,31 @@ class Order extends CI_Controller {
 
 	public function index()
 	{
-		$orders = $this->order_model->ambil_data_order_user_login($this->session->userdata('id_user_login'));
-		$codeOrder = $this->order_model->ambil_code_order_user_login($this->session->userdata('id_user_login'));
+		$orders = $this->order_model->ambil_data_order_checkout($this->session->userdata('id_user_login'));
 
 		$data = [];
 		$data['orders'] =  [];
 
-		if (count($codeOrder) > 0 )
+		if (count($orders) > 0)
 		{
-			foreach ($codeOrder as $key => $code)
+			foreach ($orders as $order)
 			{
-				if (count($orders) > 0)
-				{
-					foreach ($orders as $order)
-					{
-						if ($code['code_order_id'] == $order['code_order_id'])
-						{
-							$data['orders'][$order['code_order_id']][] = [
-								'id_order' => $order['id_order'],
-								'nama_produk' => $order['nama_produk'],
-								'warna' => $order['warna'],
-								'ukuran' => $order['ukuran'],
-								'berat_produk' => $order['berat_produk'],
-								'qty' => $order['qty'],
-								'harga_produk' => $order['harga_produk'],
-								'total' => $order['harga_produk'] * $order['qty']
-							];
-							
-						}	
-					}
-				}
-			}	
+				$data['orders'][] = [
+					'id_order' => $order['id_order'],
+					'nama_produk' => $order['nama_produk'],
+					'warna' => $order['warna'],
+					'ukuran' => $order['ukuran'],
+					'berat_produk' => $order['berat_produk'],
+					'qty' => $order['qty'],
+					'harga_produk' => $order['harga_produk'],
+					'total' => $order['harga_produk'] * $order['qty']
+				];	
+			}
 		}
 
 		$data['total_items'] = $this->cart->total_items();
 		$page['title'] = 'Checkout';
-		
+
 		$this->load->view('frontend/__main/header', $page);
 		$this->load->view('frontend/__header/order');
 		$this->load->view('frontend/order', $data);
@@ -79,7 +68,7 @@ class Order extends CI_Controller {
 			]);
 		}
 
-		if ($this->order_model->tambah_order($dataOrder) > 0)
+		if ($this->order_model->tambah_order($dataOrder) == TRUE)
 		{
 			foreach ($items as $value)
 			{
@@ -106,7 +95,7 @@ class Order extends CI_Controller {
 		redirect('order');
 	}
 
-	public function pembayaran()
+	public function checkout()
 	{
 		$this->form_validation->set_rules('nama', 'Nama', 'required|trim');
 	    $this->form_validation->set_rules('nohp', 'No Hp', 'required|trim|numeric|max_length[15]|min_length[9]');
@@ -138,24 +127,20 @@ class Order extends CI_Controller {
 	    		'bank' => $this->input->post('bank'),
 	    	];
 
-	    	if ($this->order_model->tambah_detail_order($data) > 0)
+	    	if ($this->order_model->add_detail_order_and_update_order($data, $codeOrder, $this->input->post('id_order')) == TRUE)
 	    	{
-	    		if ($this->order_model->update_data_order($codeOrder, $this->input->post('id_order')) > 0)
-	    		{
-	    			$this->index();
-	    		}
-	    		else
-	    		{
-
-	    		}
+	    		$this->session
+	    		->set_flashdata('alert', '<div class="alert alert-success" role="alert">Silahkan upload bukti transfer disini</div>');
+	    		redirect('konfirmasi');
 	    	}
 	    	else
 	    	{
-
+	    		$this->session
+	    		->set_flashdata('alert', '<div class="alert alert-danger" role="alert">Gagal memproses, silahkan coba lagi atau hubungi admin</div>');
 	    	}
-	        // $this->load->view('formsuccess');
-			// $this->load->view('frontend/pembayaran');
 	    }
+	    
+   		redirect('order');
 
 	}
 
@@ -174,6 +159,22 @@ class Order extends CI_Controller {
 		}
 
 		$this->output->set_content_type('application/json')->set_output(json_encode($data));
+	}
+
+	public function konfirmasi()
+	{
+		$this->load->model('toko_model');
+		$data['detail_order'] = $this->order_model->ambil_code_order_user_login($this->session->userdata('id_user_login'));
+		$data['orders'] = $this->order_model->ambil_data_order_invoice($this->session->userdata('id_user_login'));
+		$data['toko'] = $this->toko_model->ambil_data_toko();
+
+		$page['title'] = 'Konfirmasi Pembayaran';
+		
+		$this->load->view('frontend/__main/header', $page);
+		$this->load->view('frontend/__header/konfirmasi');
+		$this->load->view('frontend/konfirmasi', $data);
+		$this->load->view('frontend/__footer/konfirmasi');
+		$this->load->view('frontend/__main/footer');
 	}
 
 }

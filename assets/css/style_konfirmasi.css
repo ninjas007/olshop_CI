@@ -1,0 +1,22 @@
+#card-wrapper {
+	width: 40%;
+	margin: auto;
+}
+
+@media only screen and (max-width: 600px) {
+	#card-wrapper {
+		width: 100%
+	}
+}
+
+.badge:hover {
+	background: #68c93e;
+}
+
+table td {
+	border-top: 0px !important;
+}
+
+body {
+	font-family: arial !important;
+}

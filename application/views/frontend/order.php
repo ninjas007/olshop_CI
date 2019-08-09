@@ -1,9 +1,9 @@
 <?php
 function formatAngka($number) {
-return number_format($number, 0,',',',');
+    return number_format($number, 0,',',',');
 }
 ?>
-<form action="<?php echo base_url('pembayaran') ?>" method="post">
+<form action="<?php echo base_url('checkout') ?>" method="post">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -33,7 +33,7 @@ return number_format($number, 0,',',',');
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="nama">Nama Penerima*</label>
-                                                <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama penerima" value="<?php echo set_value('nama') ?>">
+                                                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Penerima..." value="<?php echo set_value('nama') ?>">
                                                 <?php echo form_error('nama','<small class="text-danger">','</small>') ?>
                                             </div>
                                             <div class="form-group col-md-6">
@@ -105,48 +105,45 @@ return number_format($number, 0,',',',');
                                                 $output = '';
                                                 $totalBerat = 0;
                                                 $subTotal = 0;
-                                                foreach ($orders as $key => $order)
+                                                foreach ($orders as $key => $item)
                                                 {
-                                                foreach ($order as $item)
-                                                {
-                                                $totalBerat += $item['berat_produk'];
-                                                $subTotal += $item['harga_produk'] * $item['qty'];
-                                                $output .= '
-                                                <tr>
-                                                    <td>
-                                                        <button type="button" class="btn btn-sm btn-danger" onclick="batalOrder(\'' .$item['id_order']. '\',\'' .$item['nama_produk']. '\')"><i class="fas fa-trash"></i></button>
-                                                        <input type="hidden" value="' .$item['id_order']. '" name="id_order[]">
-                                                    </td>
-                                                    <td><b>' .$item['nama_produk']. '</b> <br>'
-                                                        .$item['warna']. ' ('
-                                                        .$item['ukuran']. ') '
-                                                        .formatAngka($item['berat_produk']). 'gr x '
-                                                        .$item['qty']. '
-                                                    </td>
-                                                    <td>Rp. ' .formatAngka($item['harga_produk']). '</td>
-                                                    <td>Rp. ' .formatAngka($item['harga_produk'] * $item['qty']). '</td>
-                                                </tr>
-                                                ';
-                                                }
+                                                    $totalBerat += $item['berat_produk'];
+                                                    $subTotal += $item['harga_produk'] * $item['qty'];
+                                                    $output .= '
+                                                        <tr>
+                                                            <td>
+                                                                <button type="button" class="btn btn-sm btn-danger" onclick="batalOrder(\'' .$item['id_order']. '\',\'' .$item['nama_produk']. '\')"><i class="fas fa-trash"></i></button>
+                                                                <input type="hidden" value="' .$item['id_order']. '" name="id_order[]">
+                                                            </td>
+                                                            <td><b>' .$item['nama_produk']. '</b> <br>'
+                                                                .$item['warna']. ' ('
+                                                                .$item['ukuran']. ') '
+                                                                .formatAngka($item['berat_produk']). 'gr x '
+                                                                .$item['qty']. '
+                                                            </td>
+                                                            <td>Rp. ' .formatAngka($item['harga_produk']). '</td>
+                                                            <td>Rp. ' .formatAngka($item['harga_produk'] * $item['qty']). '</td>
+                                                        </tr>
+                                                    ';
                                                 }
                                                 $output .= '
-                                                <tr><td colspan="4"><hr></td></tr>
-                                                <tr class="bg-light">
-                                                    <td colspan="3">Total Berat</td>
-                                                    <td><span id="berat">' .$totalBerat / 1000 . '</span> Kg</td>
-                                                </tr>
-                                                <tr class="bg-light">
-                                                    <td colspan="3">Subtotal</td>
-                                                    <td>Rp. <span id="subtotal">' . formatAngka($subTotal) . '</span></td>
-                                                </tr>
-                                                <tr class="bg-light">
-                                                    <td colspan="3">Ongkir</td>
-                                                    <td>Rp. <span id="ongkir">0</span></td>
-                                                </tr>
-                                                <tr class="bg-light">
-                                                    <td colspan="3">Total Bayar</td>
-                                                    <td>Rp. <span id="total">' . formatAngka($subTotal) . '</span></td>
-                                                </tr>
+                                                    <tr><td colspan="4"><hr></td></tr>
+                                                    <tr class="bg-light">
+                                                        <td colspan="3">Total Berat</td>
+                                                        <td><span id="berat">' .$totalBerat / 1000 . '</span> Kg</td>
+                                                    </tr>
+                                                    <tr class="bg-light">
+                                                        <td colspan="3">Subtotal</td>
+                                                        <td>Rp. <span id="subtotal">' . formatAngka($subTotal) . '</span></td>
+                                                    </tr>
+                                                    <tr class="bg-light">
+                                                        <td colspan="3">Ongkir</td>
+                                                        <td>Rp. <span id="ongkir">0</span></td>
+                                                    </tr>
+                                                    <tr class="bg-light">
+                                                        <td colspan="3">Total Bayar</td>
+                                                        <td>Rp. <span id="total">' . formatAngka($subTotal) . '</span></td>
+                                                    </tr>
                                                 ';
                                                 echo $output;
                                                 ?>

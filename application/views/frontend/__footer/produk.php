@@ -21,10 +21,8 @@
                 <div class="card">
                   <a href="#" data-toggle="modal" data-target="#exampleModalScrollable" onclick="detailProduk(\`${el.id_produk}\`)">
                     <img src="${el.gambar_produk}" class="card-img-top" alt="img-product" width="200" height="150">
-                    <div class="card-footer p-1">
-                      <small class="text-muted">${el.nama_produk}</small> <br>
-                      <small class="text-muted">Rp. ${el.harga_produk}</small>
-                    </div>
+                      <p class="px-2 pt-2"><small class="text-muted">${el.nama_produk}</small></p>
+                      <p class="px-2"><small class="text-muted">Rp. ${el.harga_produk}</small></p>
                   </a>
                 </div>
               </div>

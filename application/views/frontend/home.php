@@ -28,12 +28,12 @@
 <div class="card-body">
   <!-- Header body -->
   <div class="row">
-    <div class="col-8">
+    <div class="col-9">
       <div class="text-left">
         <marquee class="card-title"><small>Belanja barang import dengan harga terjangkau. open pre-order Whatsapp : 082330490855</small></marquee>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-3 text-center">
       <a href="<?php echo base_url('produk') ?>" class="see-product">Lihat Produk</a>
     </div>
   </div>

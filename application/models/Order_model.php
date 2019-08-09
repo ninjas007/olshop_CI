@@ -3,21 +3,62 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Order_model extends CI_Model {
 
-	public function tambah_detail_order($data = [])
+	/**
+	* tambah detail order dan update data order by id
+	*
+	* @param data penerima   object
+	* @param code order   string
+	* @param id order   object
+	* 
+	* @return affected rows
+	*/
+	public function add_detail_order_and_update_order($data = [], $code_order = NULL, $id_order = [])
 	{
-		$this->db->insert('tbl_detail_order', $data);
+		$this->db->trans_start();
+		
+		$this->db->insert('tbl_detail_order', $data); // insert ke table order
 
-		return $this->db->affected_rows();
+		$this->db->set('status', 2);
+		$this->db->set('code_order_id', $code_order);
+		$this->db->where_in('id_order', $id_order);
+		$this->db->update('tbl_order');
+		
+		$this->db->trans_complete();
+
+		if ( $this->db->trans_status() != FALSE )
+		{
+			return TRUE;
+		}
+		
 	}
 
+	/**
+	* tambah order dari cart
+	*
+	* @param product item order   object
+	* 
+	* @return affected rows
+	*/
 	public function tambah_order($data)
 	{
+		$this->db->trans_start();
 		$this->db->insert_batch('tbl_order', $data);
+		$this->db->trans_complete();
 
-		return $this->db->affected_rows();
+		if ( $this->db->trans_status() != FALSE )
+		{
+			return TRUE;
+		}
 	}
 
-	public function ambil_data_order_user_login($id_user_login = NULL)
+	/**
+	* ambil data order by login user
+	*
+	* @param id user   int
+	* 
+	* @return data order 	object
+	*/
+	public function ambil_data_order_checkout($id_user_login = NULL)
 	{
 		$this->db->select('id_order, code_order_id, nama_produk, qty, warna, ukuran, berat_produk, harga_produk');
 		$this->db->from('tbl_order');
@@ -29,31 +70,22 @@ class Order_model extends CI_Model {
 		return $this->db->get()->result_array();
 	}
 
+	/**
+	* ambil code order by login user
+	*
+	* @param id user   int
+	* 
+	* @return data order 	object
+	*/
 	public function ambil_code_order_user_login($id_user_login = NULL)
 	{
-		$this->db->select('code_order_id, SUM(qty * harga_produk) AS total_harga');
-		$this->db->from('tbl_order');
+		$this->db->select('id_detail_order, nama_penerima, nohp_penerima, alamat_penerima, code_order, tgl_order, subtotal, kurir, ongkir, kodepos, total, bank, bukti_transfer, status_transfer');
+		$this->db->from('tbl_detail_order');
+		$this->db->join('tbl_order', 'tbl_order.code_order_id = tbl_detail_order.code_order', 'left');
+		// $this->db->join('tbl_unit_produk', 'tbl_unit_produk.id_unit = tbl_order.unit_id', 'left');
 		$this->db->where('user_id', $id_user_login);
-		$this->db->join('tbl_produk', 'tbl_produk.id_produk = tbl_order.produk_id', 'left');
-		$this->db->join('tbl_unit_produk', 'tbl_unit_produk.id_unit = tbl_order.unit_id', 'left');
+		$this->db->where('status', 2);
 		$this->db->group_by('code_order_id');
-		
-		return $this->db->get()->result_array();
-	}
-
-
-	/**
-	* Order yang sudah masuk konfirmasi pembayaran
-	*
-	* 
-	*/ 
-	public function konfirmasi_pembayaran($id_order = 0)
-	{	
-		$this->db->select('*');
-		$this->db->from('tbl_order');
-		$this->db->join('tbl_detail_order', 'tbl_detail_order.code_order = tbl_order.code_order_id', 'left');
-		$this->db->join('tbl_produk', 'tbl_produk.id_produk = tbl_order.produk_id', 'left');
-		$this->db->join('tbl_unit_produk', 'tbl_unit_produk.id_unit = tbl_order.unit_id', 'left');
 		
 		return $this->db->get()->result_array();
 	}
@@ -73,22 +105,25 @@ class Order_model extends CI_Model {
 	}
 
 	/**
-	* set code order dan status
+	* ambil data order for invoice
 	*
-	* @param code order   string
-	* @param id order   array
+	* @param id user   int
 	* 
-	* @return affected rows
+	* @return data order 	object
 	*/
-	public function update_data_order($code_order = "", $id_order = [])
+	public function ambil_data_order_invoice($id_user_login = NULL)
 	{
-		$this->db->set('status', 2);
-		$this->db->set('code_order_id', $code_order);
-		$this->db->where_in('id_order', $id_order);
-		$this->db->update('tbl_order');
-
-		return $this->db->affected_rows();
+		$this->db->select('*');
+		$this->db->from('tbl_order');
+		$this->db->where('user_id', $id_user_login);
+		// $this->db->join('tbl_detail_order', 'tbl_detail_order.code_order = tbl_order.code_order_id', 'left');
+		$this->db->join('tbl_produk', 'tbl_produk.id_produk = tbl_order.produk_id', 'left');
+		$this->db->join('tbl_unit_produk', 'tbl_unit_produk.id_unit = tbl_order.unit_id', 'left');
+		$this->db->where('status', 2);
+		
+		return $this->db->get()->result_array();
 	}
+
 }
 
 /* End of file Order_model.php */

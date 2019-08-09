@@ -4,6 +4,10 @@ class Toko_model extends CI_Model
 {
     public function ambil_data_toko()
     {
-    	return $this->db->get('tbl_toko')->result_array();
+    	$this->db->select('*');
+    	$this->db->from('tbl_toko');
+    	$this->db->join('tbl_bank', 'tbl_bank.id_bank = tbl_toko.id_toko', 'left');
+
+    	return $this->db->get()->result_array();
     }
 }
