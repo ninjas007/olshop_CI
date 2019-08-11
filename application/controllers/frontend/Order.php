@@ -47,8 +47,6 @@ class Order extends CI_Controller {
 		$this->load->view('frontend/order', $data);
 		$this->load->view('frontend/__footer/order');
 		$this->load->view('frontend/__main/footer');
-
-		// $this->load->view('frontend/log_order', $data);
 	}
 
 	public function add()
@@ -137,10 +135,10 @@ class Order extends CI_Controller {
 	    	{
 	    		$this->session
 	    		->set_flashdata('alert', '<div class="alert alert-danger" role="alert">Gagal memproses, silahkan coba lagi atau hubungi admin</div>');
+   				redirect('order');
 	    	}
 	    }
 	    
-   		redirect('order');
 
 	}
 
@@ -175,6 +173,48 @@ class Order extends CI_Controller {
 		$this->load->view('frontend/konfirmasi', $data);
 		$this->load->view('frontend/__footer/konfirmasi');
 		$this->load->view('frontend/__main/footer');
+	}
+
+	public function bukti_transfer()
+	{
+		$config['upload_path']		= './assets/img/bukti_transfer/';
+        $config['allowed_types']    = 'jpeg|jpg|png';
+        $config['max_size']         = 1024;
+        $config['file_name']		= sha1(date('YmdHis'));	
+
+        $this->load->library('upload', $config);
+        $code_order = $this->input->post('code_order');
+
+        if ( ! $this->upload->do_upload('image'))
+        {
+            $error = ['error' => $this->upload->display_errors()];
+            
+            $this->session
+            ->set_flashdata('alert', '<div class="alert alert-danger" role="alert">' . $error['error'] . '</div>');
+        }
+        else
+        {
+            $data = ['upload_data' => $this->upload->data()];
+        	$tbl_detail_order = $this->db->get_where('tbl_detail_order', ['code_order' => $code_order])->row_array();
+            $result = $this->order_model->update_foto_detail_order($data['upload_data']['file_name'], $code_order);
+
+            if ($result > 0) 
+            {
+            	unlink(FCPATH.'/assets/img/bukti_transfer/'.$tbl_detail_order['bukti_transfer']);
+            	$this->session
+            	->set_flashdata('alert', '<div class="alert alert-success" role="alert">Berhasil mengupload bukti transfer, pesanan segera diproses</div>');
+            }
+            else
+            {
+            	$this->session
+            	->set_flashdata('alert', '<div class="alert alert-danger" role="alert">Gagal mengupload, clear browser atau hubungi admin</div>');
+            }
+
+        }
+        
+        redirect('konfirmasi');
+
+
 	}
 
 }

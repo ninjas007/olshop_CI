@@ -108,7 +108,7 @@
                   <td class="pt-2 pr-1 pb-1">:</td>
                   <td class="pt-2 pr-1 pb-1">
                     <div class="input-group pull-left">
-                      <input type="number" class="input-sm px-2" id="qty" style="width:70px;" onclick="changeTotal()" onkeyup="changeTotal()" placeholder="Qty" value="1">
+                      <input type="number" class="input-sm px-2" id="qty" style="width:70px;" placeholder="Qty" value="1" onclick="changeTotal()">
                     </div>
                   </td>
                 </tr>
@@ -159,32 +159,38 @@
   function changeTotal() {
 
     let qty = $('#qty').val()
-    if (qty < 0) {
-      alert('qty tidak boleh kurang dari nol')
+    if (qty < 1) {
       $('#qty').val(1)
+      swal('Qty tidak boleh kurang dari nol')
     }
 
     $('#subTotal').html($('#qty').val() * $('#hargaProduk').html())
+
+    return false
 
   }
 
 
   function addToCart(id_produk = null, nama_produk = '', harga_produk = null, gambar_produk = '') {
-    
-    $.ajax({
-      url: 'frontend/cart/add_to_cart',
-      type: 'POST',
-      data: { id_produk: id_produk,
-              qty: $('#qty').val(),
-              price: harga_produk, 
-              name: nama_produk, 
-              id_unit: $('#unit').val()
-            },
-      success: function (response) {
-        swal('Berhasil menambah produk ke keranjang');
-        $('#jumlahItem').html(response)
-      }
-    })    
+        
+    if (changeTotal() != false) {
+      $.ajax({
+        url: 'frontend/cart/add_to_cart',
+        type: 'POST',
+        data: { id_produk: id_produk,
+                qty: $('#qty').val(),
+                price: harga_produk, 
+                name: nama_produk, 
+                id_unit: $('#unit').val()
+              },
+        success: function (response) {
+          swal('Berhasil menambah produk ke keranjang');
+          $('#jumlahItem').html(response)
+        }
+      })    
+    } else {
+      swal('Qty tidak boleh kurang dari nol')
+    }
     
   }
 

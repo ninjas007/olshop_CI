@@ -8,6 +8,7 @@ function formatAngka($number) {
 	<div class="card-body">
 		<div class="row">
 			<div class="col-md-12 p-0">
+				<?php echo $this->session->flashdata('alert') ?>
 				<table class="table">
 					<thead>
 						<tr>
@@ -92,11 +93,14 @@ function formatAngka($number) {
 															
 															<?php endforeach ?>
 															<tr><td colspan="3"><div class="border"></div></td></tr>
-															<tr>
-																<td class="py-1 font-weight-bold">Total Harga Produk : <?php echo formatAngka($d_order['subtotal']) ?></td>
-																<td class="py-1 font-weight-bold">Total Bayar : <?php echo formatAngka($d_order['total']) ?></td>
+															<tr class="py-1 font-weight-bold">
+																<td>Total Harga Produk : <?php echo formatAngka($d_order['subtotal']) ?></td>
+																<td>Total Bayar : <?php echo formatAngka($d_order['total']) ?></td>
 															</tr>
-															<tr><td class="py-1 font-weight-bold">Total Ongkir : <?php echo formatAngka($d_order['ongkir']) ?></td></tr>
+															<tr class="py-1 font-weight-bold">
+																<td>Total Ongkir : <?php echo formatAngka($d_order['ongkir']) ?></td>
+																<td><button type="button" class="btn btn-sm btn-default"><i class="fas fa-print"></i> Cetak Invoice</button></td>
+															</tr>
 														</tbody>
 													</table>
 												</div>
@@ -110,7 +114,7 @@ function formatAngka($number) {
 							</td>
 						</tr>
 						<!-- Modal -->
-						<form action="<?php echo base_url() ?>">
+						<form action="<?php echo base_url('upload_bukti_transfer') ?>" method="POST" enctype="multipart/form-data">
 							<div class="modal fade" id="<?php echo 'modalUpload' .$d_order['id_detail_order']. '' ?>">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
@@ -121,12 +125,22 @@ function formatAngka($number) {
 											</button>
 										</div>
 										<div class="modal-body">
-											<input type="file" class="form-control mb-2">
-											<img src="http://placehold.it/250x250" width="100%">
+											<input type="file" class="form-control mb-2" name="image">
+											<input type="hidden" name="code_order" value="<?php echo $d_order['code_order'] ?>">
+											<?php 
+												if ($d_order['bukti_transfer'] == NULL)
+												{
+													echo '<img src="' . base_url('assets/img/bukti_transfer/default.jpg') . '" width="100%" height="400px">';	
+												} 
+												else
+												{
+													echo '<img src="' . base_url('assets/img/bukti_transfer/'.$d_order['bukti_transfer']) . '" width="100%" height="400px">';
+												}
+											?>
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-											<button type="button" class="btn btn-primary btn-sm">Save changes</button>
+											<button type="submit" class="btn btn-primary btn-sm">Save changes</button>
 										</div>
 									</div>
 								</div>

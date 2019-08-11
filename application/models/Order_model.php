@@ -124,6 +124,22 @@ class Order_model extends CI_Model {
 		return $this->db->get()->result_array();
 	}
 
+	/**
+	* update bukti transfer di detail order
+	*
+	* @param nama file gambar   string
+	* @param code order   string
+	* 
+	* @return affected rows
+	*/
+	public function update_foto_detail_order($file_name = NULL, $code_order)
+	{
+		$this->db->set('bukti_transfer', $file_name);
+		$this->db->where('code_order', $code_order);
+		$this->db->update('tbl_detail_order');
+		
+		return $this->db->affected_rows();
+	}
 }
 
 /* End of file Order_model.php */
