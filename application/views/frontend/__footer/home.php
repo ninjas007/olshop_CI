@@ -30,20 +30,23 @@ function init() {
           active = "";
         }
         
-        output += '<div class="carousel-item '+active+'"><div class="row">';
+        output += '<div class="carousel-item '+active+'"><table width="100%"><tr>';
         
         $.each(el, function(i, data) {
           output += `
-              <div class="col-md-3">
-                <a href="">
-                <img src="${data.img_category}" class="d-block w-100" alt="IMG-CATEGORY" style="height:100px; border-radius: 5px;">
-                <p>${data.name_category}</p>
-                </a>
-              </div>
+              <td width="25%" class="p-2">
+                <form class="form-inline my-2 my-lg-0" action="<?php echo base_url('produk') ?>" method="post">
+                    <input type="hidden" name="search" value="${data.name_category}">
+                    <button type="submit">
+                      <img src="${data.img_category}" alt="IMG-CATEGORY" width="100%" height="100">
+                      <p class="card-text mt-2">${data.name_category}</p>
+                    </button>
+                </form>
+              </td>
           `
         });
 
-        output += '</div></div>';
+        output += '</tr></table></div>';
         
       });
 

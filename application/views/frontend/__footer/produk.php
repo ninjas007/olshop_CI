@@ -12,8 +12,7 @@
         
         $('#footerLoad').html(`<button href="#" class="btn btn-load" onclick="load_click()">Load More</button>`)
 
-        if (response.status == 200) 
-        {  
+        if (response.status == 200) {  
           let output = ``;
           $.each(response.data, function(index, el) {
             output += `
@@ -29,26 +28,20 @@
             `
           });
 
-          if (response.total_data < 6)
-          {
+          if (response.total_data < 6) {
             $('#footerLoad').html(`<p class="mb-0">semua produk telah tampil</p>`)
           }
+          
           $('#getProduk').append(output)
           $('#lastId').html(response.last_id)
-        }
-        else 
-        {
-          if (response.total_data == 0 && response.last_id == null)
-          {
+        } else {
+          if (response.total_data == 0 && response.last_id == null) {
               $('#getProduk').html(`<img src="https://everflowstore.com/themes/black/img/ic_notfound.png" style="margin: auto">`)
               $('.btn-load').html(`produk tidak ditemukan`)
-          }
-          else
-          {
+          } else {
             $('.btn-load').html(response.data)
           }
         }
-
       }
     })
     
@@ -162,11 +155,9 @@
     if (qty < 1) {
       $('#qty').val(1)
       swal('Qty tidak boleh kurang dari nol')
+      $('#subTotal').html($('#qty').val() * $('#hargaProduk').html())
+      return false
     }
-
-    $('#subTotal').html($('#qty').val() * $('#hargaProduk').html())
-
-    return false
 
   }
 

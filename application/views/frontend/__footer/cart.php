@@ -1,6 +1,4 @@
-
 <script>
-
 $('.remove-cart').click(function(event) {
   $.ajax({
     url: '../frontend/cart/delete/',
@@ -13,9 +11,10 @@ $('.remove-cart').click(function(event) {
       } else {
         swal('Gagal menghapus item')
       }
+      $('.swal-button').click(function(event) {
+         location.reload()
+      });
     }
   })    
 });
-
-
 </script>

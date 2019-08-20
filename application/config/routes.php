@@ -71,5 +71,5 @@ $route['order/ongkir/get_kota'] = 'ongkir/get_kota';
 $route['ongkir/get_ongkir'] = 'ongkir/get_ongkir';
 $route['order/ongkir/get_ongkir'] = 'ongkir/get_ongkir';
 
-$route['konfirmasi'] = 'frontend/order/konfirmasi';
+$route['konfirmasi'] = 'frontend/konfirmasi/index';
 $route['upload_bukti_transfer'] = 'frontend/order/bukti_transfer';

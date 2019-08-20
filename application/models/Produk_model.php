@@ -45,6 +45,15 @@ class Produk_model extends CI_Model {
 		return $this->db->get()->result_array();
 	}
 
+	public function list_produk_per_kategori($id_kategori = NULL)
+	{
+		$this->db->select('*');
+		$this->db->from('tbl_produk');
+		$this->db->where('kategori_produk_id', $id_kategori);
+
+		return $this->db->get()->result_array();
+	}
+
 }
 
 /* End of file Produk_model.php */

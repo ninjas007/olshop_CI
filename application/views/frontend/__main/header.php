@@ -17,7 +17,7 @@
         <!-- JQuery -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
         <!-- Load style css -->
-        <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css') ?>">        
+        <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css') ?>"> 
         <title><?php echo $title; ?></title>
     </head>
     <body>

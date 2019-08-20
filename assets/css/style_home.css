@@ -34,23 +34,29 @@ a {
 }
 
 a:hover {
-	color: #68c93e;
+	color: red;
 	text-decoration: none;
 }
 
-#carouselProduct .carousel-control-next, #carouselProduct .carousel-control-prev {
-	width: 5%;
-	margin-top: -40px;
+.banner-agen {
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,.3);
+	background: #f0f0f0;
 }
 
-#carouselProduct .carousel-item a img {
+/*#carouselProduct .carousel-control-next, #carouselProduct .carousel-control-prev {
+	width: 5%;
+	margin-top: -40px;
+	color: black;
+}*/
+
+/*#carouselProduct .carousel-item a img {
 	box-shadow: 1px 2px 4px 0 rgba(0,0,0,.5)
 }
 
 #carouselProduct .carousel-item img {
 	padding: 2px;
 	border-radius: 5px;
-}
+}*/
 
 #carouselProduct .carousel-item a img:hover {
 	border: 2px solid #68c93e;

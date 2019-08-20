@@ -4,6 +4,26 @@
 }
 
 body {
-    background: url('https://image.freepik.com/darmowe-wektory/wzor-o-zakupach_1061-495.jpg') fixed;
+    background: url('../img/background-body.jpg') fixed;
     font-family: 'Exo', sans-serif;
+}
+
+.card-body {
+	background: white;
+}
+
+a {
+	text-decoration: none;
+	color: #68c93e;
+}
+
+a:hover {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+@media only screen and (min-width: 600px) {
+  .table-navbar {
+  	width: 50%;
+  }
 }
