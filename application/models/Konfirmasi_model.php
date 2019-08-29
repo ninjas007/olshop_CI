@@ -55,7 +55,7 @@ class Konfirmasi_model extends CI_Model {
 	public function update_foto_detail_order($file_name = NULL, $code_order)
 	{
 		$this->db->set('bukti_transfer', $file_name);
-		$this->db->set('status_transfer', 'proses');
+		$this->db->set('status_transfer', 1);
 		$this->db->where('code_order', $code_order);
 		$this->db->update('tbl_detail_order');
 		

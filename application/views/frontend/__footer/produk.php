@@ -1,7 +1,8 @@
 <script>
+  var path = window.location.pathname.split('/')
+  
   function init_produk(last_id = 0) {
-
-    $('#footerLoad').html(`<img src="https://cdn.dribbble.com/users/172519/screenshots/3520576/dribbble-spinner-800x600.gif" width="50" height="35">`)
+    $('#footerLoad').html(`<img src="`+window.location.origin+`/`+path[1]+`/assets/img/spinner.gif" width="50" height="35">`)
 
     $.ajax({
       url: 'api/produk/get_produk_limit',
@@ -36,7 +37,7 @@
           $('#lastId').html(response.last_id)
         } else {
           if (response.total_data == 0 && response.last_id == null) {
-              $('#getProduk').html(`<img src="https://everflowstore.com/themes/black/img/ic_notfound.png" style="margin: auto">`)
+              $('#getProduk').html(`<img src="`+window.location.origin+`/`+path[1]+`/assets/img/produk/no_image.png" style="margin: auto">`)
               $('.btn-load').html(`produk tidak ditemukan`)
           } else {
             $('.btn-load').html(response.data)

@@ -43,6 +43,10 @@ a:hover {
 	background: #f0f0f0;
 }
 
+button:hover {
+	cursor: pointer !important:;
+}
+
 /*#carouselProduct .carousel-control-next, #carouselProduct .carousel-control-prev {
 	width: 5%;
 	margin-top: -40px;
