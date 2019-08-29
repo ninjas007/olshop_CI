@@ -124,7 +124,7 @@ class Order extends CI_Controller {
 	    		'total' => str_replace(',', '', $this->session->userdata('total')),
 	    		'bank' => $this->input->post('bank'),
 	    		'bukti_transfer' => NULL,
-	    		'status_transfer' => 'belum lunas'
+	    		'status_transfer' => 0
 	    	];
 
 	    	if ($this->order_model->add_detail_order_and_update_order($data, $codeOrder, $this->input->post('id_order')) == TRUE)

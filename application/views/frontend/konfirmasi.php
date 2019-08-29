@@ -35,7 +35,19 @@ function formatAngka($number) {
 											<td>
 												<a href="<?php echo '#modalUpload' .$d_order['id_detail_order']. '' ?>" data-toggle="modal"><span class="badge badge-secondary badge-pill p-2 px-3">Upload</span></a>
 											</td>
-											<td><?php echo strtoupper($d_order['status_transfer']) ?></td>
+											<td>
+												<?php 
+													if ($d_order['status_transfer'] == 0) {
+														echo '<span class="text-danger">UNPAID</span>';
+													} 
+													if ($d_order['status_transfer'] == 1){
+														echo '<span class="text-primary">PROCESS</span>';
+													} 
+													if ($d_order['status_transfer'] == 2) {
+														echo '<span class="text-success">PAID</span>';
+													}
+												?>
+											</td>
 										</tr>
 										<tr style="font-size: 10px;">
 											<td>
