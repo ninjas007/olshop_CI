@@ -11,19 +11,19 @@
 	<?php $this->load->view('backend/__main/offset') ?>
 	<!-- page container area end -->
 	<!-- jquery latest version -->
-	<script src="<?php echo base_url('vendor/strdash/')?>assets/js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="<?php echo base_url('assets/template_backend/')?>js/vendor/jquery-2.2.4.min.js"></script>
 	<!-- bootstrap 4 js -->
-	<script src="<?php echo base_url('vendor/strdash/')?>assets/js/popper.min.js"></script>
-	<script src="<?php echo base_url('vendor/strdash/')?>assets/js/bootstrap.min.js"></script>
-	<script src="<?php echo base_url('vendor/strdash/')?>assets/js/owl.carousel.min.js"></script>
-	<script src="<?php echo base_url('vendor/strdash/')?>assets/js/metisMenu.min.js"></script>
-	<script src="<?php echo base_url('vendor/strdash/')?>assets/js/jquery.slimscroll.min.js"></script>
-	<script src="<?php echo base_url('vendor/strdash/')?>assets/js/jquery.slicknav.min.js"></script>
+	<script src="<?php echo base_url('assets/template_backend/')?>js/popper.min.js"></script>
+	<script src="<?php echo base_url('assets/template_backend/')?>js/bootstrap.min.js"></script>
+	<script src="<?php echo base_url('assets/template_backend/')?>js/owl.carousel.min.js"></script>
+	<script src="<?php echo base_url('assets/template_backend/')?>js/metisMenu.min.js"></script>
+	<script src="<?php echo base_url('assets/template_backend/')?>js/jquery.slimscroll.min.js"></script>
+	<script src="<?php echo base_url('assets/template_backend/')?>js/jquery.slicknav.min.js"></script>
     <!-- others plugins -->
     <!-- Load footer single page -->
     <?php $this->load->view('backend/__footer/'.strtolower($page).''); ?>
-    <script src="<?php echo base_url('vendor/strdash/') ?>assets/js/plugins.js"></script>
-    <script src="<?php echo base_url('vendor/strdash/') ?>assets/js/scripts.js"></script>
+    <script src="<?php echo base_url('assets/template_backend/')?>/js/plugins.js"></script>
+    <script src="<?php echo base_url('assets/template_backend/')?>/js/scripts.js"></script>
 </body>
 
 </html>

@@ -2,7 +2,7 @@
     <div class="sidebar-menu">
         <div class="sidebar-header">
             <div class="logo">
-                <a href="index.html"><img src="<?php echo base_url('vendor/strdash/') ?>assets/images/icon/logo.png" alt="logo"></a>
+                <a href="index.html"><img src="<?php echo base_url('assets/template_backend/') ?>images/icon/logo.png" alt="logo"></a>
             </div>
         </div>
         <!-- Load sidebar -->

@@ -7,23 +7,23 @@
     <title>Admin Page - <?php echo $page ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
-    <link rel="stylesheet" href="<?php echo base_url('vendor/strdash/')?>assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url('vendor/strdash/')?>assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo base_url('vendor/strdash/')?>assets/css/themify-icons.css">
-    <link rel="stylesheet" href="<?php echo base_url('vendor/strdash/')?>assets/css/metisMenu.css">
-    <link rel="stylesheet" href="<?php echo base_url('vendor/strdash/')?>assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="<?php echo base_url('vendor/strdash/')?>assets/css/slicknav.min.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/template_backend/')?>css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/template_backend/')?>css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/template_backend/')?>css/themify-icons.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/template_backend/')?>css/metisMenu.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/template_backend/')?>css/owl.carousel.min.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/template_backend/')?>css/slicknav.min.css">
     <!-- amchart css -->
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
     <!-- others css -->
     <?php $this->load->view('backend/__header/'.strtolower($page).'') ?>
     <!-- style css -->
-    <link rel="stylesheet" href="<?php echo base_url('vendor/strdash/')?>assets/css/typography.css">
-    <link rel="stylesheet" href="<?php echo base_url('vendor/strdash/')?>assets/css/default-css.css">
-    <link rel="stylesheet" href="<?php echo base_url('vendor/strdash/')?>assets/css/styles.css">
-    <link rel="stylesheet" href="<?php echo base_url('vendor/strdash/')?>assets/css/responsive.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/template_backend/')?>css/typography.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/template_backend/')?>css/default-css.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/template_backend/')?>css/styles.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/template_backend/')?>css/responsive.css">
     <!-- modernizr css -->
-    <script src="<?php echo base_url('vendor/strdash/')?>assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="<?php echo base_url('assets/template_backend/')?>js/vendor/modernizr-2.8.3.min.js"></script>
     <!-- Sweet Alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Load header single page -->
