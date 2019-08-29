@@ -7,8 +7,8 @@ class Orders_model extends CI_Model {
 	{
 		$this->db->select('*');
 		$this->db->from('tbl_detail_order');
+		$this->db->where('is_deleted', NULL);
 		$this->db->order_by('id_detail_order', 'desc');
-		// $this->db->join('tbl_detail_order', 'tbl_detail_order.code_order = tbl_order.code_order_id', 'left');
 
 		return $this->db->get()->result_array();
 	}
@@ -26,6 +26,15 @@ class Orders_model extends CI_Model {
 	public function update_status_order($code_orders = [])
 	{
 		$this->db->set('status_transfer', 2);
+		$this->db->where_in('code_order', $code_orders);
+		$this->db->update('tbl_detail_order');
+
+		return $this->db->affected_rows();
+	}
+
+	public function delete_order($code_orders = [])
+	{
+		$this->db->set('is_deleted', 1);
 		$this->db->where_in('code_order', $code_orders);
 		$this->db->update('tbl_detail_order');
 

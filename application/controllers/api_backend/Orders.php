@@ -90,6 +90,22 @@ class Orders extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}
 
+	public function hapus_order()
+	{
+		$data['status'] = 404;
+		$codeOrders = $this->input->post('code_orders');
+
+		if ($codeOrders != NULL)
+		{
+			if($this->orders_model->delete_order($codeOrders) > 0)
+			{
+				$data['status'] = 200;
+			}
+		}
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($data));
+	}
+
 	// change background color status
 	private function __background_status($status)
 	{

@@ -87,7 +87,7 @@
        }
    });
 
-   $('#konfirmasiTransfer').click(function(event) {
+   	$('#konfirmasiTransfer').click(function(event) {
 
    		let status = $('input:checkbox:checked.checkSingle').map(function () {
     		return this.value;
@@ -107,10 +107,9 @@
 		if (code_orders.length > 0) {
 	   		swal({
 	   		  title: "Konfirmasi orderan ini?",
-	   		  text: "status order yang sudah dikonfirmasi, tidak dapat diubah lagi!",
+	   		  text: "orderan yang sudah dikonfirmasi, tidak dapat diubah lagi!",
 	   		  icon: "warning",
 	   		  buttons: true,
-	   		  dangerMode: true,
 	   		})
 	   		.then((konfirmasi) => {
 	   		  	if (konfirmasi) {
@@ -121,7 +120,7 @@
 	  					data: {code_orders: code_orders},
 	  					success: function(response) {
 	  						if (response.status == 200) {
-	  	  						swal(`Berhasil mengkonfirmasi status order`);
+	  	  						swal({icon:"success", text: "Berhasil mengkonfirmasi order"});
 	  							init();
 	  						}
 	  					}
@@ -129,7 +128,42 @@
 	   		  	}
 	   		});
 	   	} else {
-	   		swal('Silahkan ceklist order terlebih dahulu');
+	   		swal({icon:"error", text: "ceklist order terlebih dahulu"});
 	   	}
-   });
+   	});
+
+   	$('#hapusOrder').click(function(event) {
+
+  		let code_orders = $('input:checkbox:checked.checkSingle').map(function () {
+    		return this.name;
+  		}).get();
+
+		if (code_orders.length > 0) {
+	   		swal({
+	   		  title: "Hapus orderan ini?",
+	   		  text: "orderan yang telah dihapus, dipindahkan ke trash!",
+	   		  icon: "warning",
+	   		  buttons: true,
+	   		  dangerMode: true,
+	   		})
+	   		.then((deleted) => {
+	   		  	if (deleted) {
+	  				$.ajax({
+	  					url: 'api_backend/orders/hapus_order',
+	  					type: 'POST',
+	  					dataType: 'json',
+	  					data: {code_orders: code_orders},
+	  					success: function(response) {
+	  						if (response.status == 200) {
+	  	  						swal({icon:"success", text: "Berhasil menghapus order"});
+	  							init();
+	  						}
+	  					}
+	  				})
+	   		  	}
+	   		});
+	   	} else {
+	   		swal({icon:"error", text: "ceklist order terlebih dahulu"});
+	   	}
+   	});
 </script>
